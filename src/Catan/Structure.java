@@ -7,7 +7,11 @@ public abstract class Structure {
 	static Map<CardType, Integer> cost;
 	static int resourceYield;
 	
-	PlayerType owner;
+	Player owner;
+	
+	public Structure(Player o) {
+		this.owner = o;
+	}
 	
 	static boolean canPlayerAfford(Map<CardType, Integer> hand) {
 		for(Entry<CardType, Integer> costValue: cost.entrySet()){
