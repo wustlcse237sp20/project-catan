@@ -8,8 +8,8 @@ public class DevelopmentCard extends Card {
 	
 	Map<CardType, Integer> cost;
 
-	public DevelopmentCard(CardType model) {
-		super(model);
+	public DevelopmentCard() {
+		super(CardType.DEVELOPMENT);
 		cost = new HashMap<CardType, Integer>();
 		cost.put(CardType.WHEAT, 1);
 		cost.put(CardType.ORE, 1);
