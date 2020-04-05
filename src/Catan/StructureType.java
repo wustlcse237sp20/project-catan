@@ -1,6 +1,8 @@
 package Catan;
 
+
 public enum StructureType {
+	
 	ROAD(0), SETTLEMENT(1), CITY(2);
 	
 	private int id;
@@ -12,4 +14,6 @@ public enum StructureType {
 	public int getId() {
 		return id;
 	}
+	
+
 }

@@ -2,7 +2,7 @@ package Catan;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class Structure {
+public abstract class Structure implements Purchasable {
 	static StructureType type;
 	static Map<CardType, Integer> cost;
 	static int resourceYield;
@@ -13,7 +13,7 @@ public abstract class Structure {
 		this.owner = o;
 	}
 	
-	static boolean canPlayerAfford(Map<CardType, Integer> hand) {
+	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
 		for(Entry<CardType, Integer> costValue: cost.entrySet()){
 			CardType checkingCardType = costValue.getKey();
 			if(!hand.containsKey(checkingCardType)) {
@@ -24,6 +24,10 @@ public abstract class Structure {
 			}
 		}
 		return true;
+	}
+	
+	public Map<CardType, Integer> getCost() {
+		return cost;
 	}
 	
 }
