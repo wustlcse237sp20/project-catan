@@ -1,4 +1,4 @@
-package Catan;
+package catan;
 
 public class Deck {
 

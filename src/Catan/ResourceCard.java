@@ -1,4 +1,4 @@
-package Catan;
+package catan;
 
 import java.util.Map;
 import java.util.HashMap;
