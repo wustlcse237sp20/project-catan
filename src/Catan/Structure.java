@@ -1,5 +1,25 @@
 package Catan;
+import java.util.Map;
+import java.util.Map.Entry;
 
-public interface Structure {
-
+public abstract class Structure {
+	static StructureType type;
+	static Map<CardType, Integer> cost;
+	static int resourceYield;
+	
+	PlayerType owner;
+	
+	static boolean canPlayerAfford(Map<CardType, Integer> hand) {
+		for(Entry<CardType, Integer> costValue: cost.entrySet()){
+			CardType checkingCardType = costValue.getKey();
+			if(!hand.containsKey(checkingCardType)) {
+				return false;
+			}
+			if(hand.get(checkingCardType) < cost.get(checkingCardType)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }
