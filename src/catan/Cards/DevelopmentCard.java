@@ -10,20 +10,18 @@ public class DevelopmentCard extends Card {
 
 	public DevelopmentCard() {
 		super(CardType.DEVELOPMENT);
-		cost = new HashMap<CardType, Integer>();
-		cost.put(CardType.WHEAT, 1);
-		cost.put(CardType.ORE, 1);
-		cost.put(CardType.SHEEP, 1);
+		this.cost = new HashMap<CardType, Integer>();
+		this.cost.put(CardType.WHEAT, 1);
+		this.cost.put(CardType.ORE, 1);
+		this.cost.put(CardType.SHEEP, 1);
 	}
 
 	@Override
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
-		for(Entry<CardType, Integer> costValue: cost.entrySet()){
+		for(Entry<CardType, Integer> costValue: this.cost.entrySet()){
 			CardType checkingCardType = costValue.getKey();
-			if(!hand.containsKey(checkingCardType)) {
-				return false;
-			}
-			if(hand.get(checkingCardType) < cost.get(checkingCardType)) {
+
+			if(hand.get(checkingCardType) < this.cost.get(checkingCardType)) {
 				return false;
 			}
 		}
@@ -32,7 +30,7 @@ public class DevelopmentCard extends Card {
 
 	@Override
 	public Map<CardType, Integer> getCost() {
-		return cost;
+		return this.cost;
 	}
 
 }

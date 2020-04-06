@@ -13,6 +13,10 @@ public class ResourceCard extends Card {
 		affordableCost = null;
 	}
 
+	/**
+	 * If quantity of any of the cars is >= 4, then returns true 
+	 * because then player can trade for other resources
+	 */
 	@Override
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
 		affordableCost = new HashMap<CardType, Integer>();
