@@ -33,5 +33,14 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
+	@Test
+	void testGenBoard() {
+		double x = 2;
+		double y = 2;
+		double hexagonRadius = 4;
+		GameBoard.genBoard(x,y,hexagonRadius);
+		assertTrue(true);
+	}
+	
 
 }
