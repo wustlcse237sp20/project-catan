@@ -21,7 +21,7 @@ public class Tile {
 	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth) {
 		centerX =x;
 		centerY = y;
-		value =tileValue;
+		value = tileValue;
 		color = tileColor;
 		width = tileWidth;
 		if (tileValue==0) {
@@ -31,6 +31,9 @@ public class Tile {
 		}
 	}
 	
+	/**
+	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
+	 */
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
