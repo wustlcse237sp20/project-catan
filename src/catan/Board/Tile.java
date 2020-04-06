@@ -10,7 +10,14 @@ public class Tile {
 	private double width;
 	private boolean hasRobber;
 	
-	
+	/**
+	 * Initializes Tile with the following parameters:
+	 * @param x x-coordinate of center of hexagon tile
+	 * @param y y-coordinate of center of hexagon tile
+	 * @param tileValue number associated with the tile: if dice rolls this number, tile is "activated"
+	 * @param tileColor
+	 * @param tileWidth
+	 */
 	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth) {
 		centerX =x;
 		centerY = y;
@@ -23,6 +30,7 @@ public class Tile {
 			hasRobber = false;
 		}
 	}
+	
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
@@ -43,9 +51,11 @@ public class Tile {
 				
 			}
 	}
+	
 	public boolean hasRobber() {
 		return hasRobber;
 	}
+	
 	public void setRobber(boolean newValue) {
 		hasRobber = newValue;
 	}
