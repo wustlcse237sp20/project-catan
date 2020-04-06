@@ -4,6 +4,7 @@
   - What user stories were completed this iteration?
     * Andy worked on the main User Story, the visual game board
     * Jakob set up all the data structures needed to run the game. These will likely evolve over time 
+    * Evan set up our testing system so we can validadate the functionality of our datastructures and eventually other functions
     
   - What user stories do you intend to complete next iteration?
     * Making the game board interactive, which requires connecting the datastructures to the game board class
