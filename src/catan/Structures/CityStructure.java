@@ -1,7 +1,10 @@
-package catan;
+package catan.Structures;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import catan.Cards.CardType;
+import catan.Player.Player;
 
 public class CityStructure extends Structure {
 	static StructureType type = StructureType.CITY;
@@ -11,11 +14,10 @@ public class CityStructure extends Structure {
 		cost.put(CardType.WHEAT, 2);
 		cost.put(CardType.ORE, 3);
 	}
-	static int resourceYield = 2;
+	static int vpYield = 2;
 	
 	public CityStructure(Player o) {
 		super(o);
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -1,7 +1,19 @@
-package catan;
+package catan.Player;
 
 import java.util.Map;
 import java.util.Map.Entry;
+
+import catan.Purchasable;
+import catan.Cards.Card;
+import catan.Cards.CardType;
+import catan.Cards.DevelopmentCard;
+import catan.Cards.ResourceCard;
+import catan.Structures.CityStructure;
+import catan.Structures.RoadStructure;
+import catan.Structures.SettlementStructure;
+import catan.Structures.Structure;
+import catan.Structures.StructureType;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -30,6 +42,8 @@ public class Player {
 		
 	}
 	
+	//TODO: function for determining if can remove x amount of cards of type x from Player's hand
+	
 	// for removing cards given a type
 	public void removeCardsFromHand(CardType cardType, int amount) {
 		int newAmount = handCardAmounts.get(cardType) - amount;
@@ -42,7 +56,7 @@ public class Player {
 	
 	// for adding an instance to the players hand
 	public void addOneCardToHand(Card newCard) {
-		this.addCardsToHand(newCard.type, 1);
+		this.addCardsToHand(newCard.getCardType(), 1);
 		if(newCard instanceof DevelopmentCard) {
 			devCards.add((DevelopmentCard)newCard);
 		}

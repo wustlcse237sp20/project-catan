@@ -1,4 +1,4 @@
-package catan;
+package catan.Structures;
 
 
 public enum StructureType {
