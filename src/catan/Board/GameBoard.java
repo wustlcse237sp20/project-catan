@@ -1,4 +1,4 @@
-package catan;
+package catan.Board;
 
 import java.awt.Color;
 import java.util.Arrays;

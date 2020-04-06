@@ -1,5 +1,9 @@
-package catan;
+package catan.Structures;
 import java.util.Map;
+
+import catan.Cards.CardType;
+import catan.Player.Player;
+
 import java.util.HashMap;
 
 public class RoadStructure extends Structure {
@@ -10,9 +14,10 @@ public class RoadStructure extends Structure {
 		cost.put(CardType.BRICK, 1);
 		cost.put(CardType.LUMBER, 1);
 	}
-	static int resourceYield = 0;
+	static int vpYield = 0;
 
 	public RoadStructure(Player o) {
 		super(o);
+
 	}
 }

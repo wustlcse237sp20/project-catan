@@ -1,18 +1,22 @@
-package catan;
+package catan.Cards;
+
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.HashMap;
 
-public abstract class Structure implements Purchasable {
-	static StructureType type;
-	static Map<CardType, Integer> cost;
-	static int resourceYield;
+public class DevelopmentCard extends Card {
 	
-	Player owner;
-	
-	public Structure(Player o) {
-		this.owner = o;
+	Map<CardType, Integer> cost;
+
+	public DevelopmentCard() {
+		super(CardType.DEVELOPMENT);
+		cost = new HashMap<CardType, Integer>();
+		cost.put(CardType.WHEAT, 1);
+		cost.put(CardType.ORE, 1);
+		cost.put(CardType.SHEEP, 1);
 	}
-	
+
+	@Override
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
 		for(Entry<CardType, Integer> costValue: cost.entrySet()){
 			CardType checkingCardType = costValue.getKey();
@@ -25,9 +29,10 @@ public abstract class Structure implements Purchasable {
 		}
 		return true;
 	}
-	
+
+	@Override
 	public Map<CardType, Integer> getCost() {
 		return cost;
 	}
-	
+
 }
