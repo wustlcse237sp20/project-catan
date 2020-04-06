@@ -1,4 +1,4 @@
-package catan;
+package Catan;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -11,6 +11,13 @@ public class GameBoard {
 	
 	
 	public static Tile[] tiles;
+	
+	/**
+     * Draws Game Boatd
+     * @param centerX - the center x coordinate of the screen
+     * @param centerX - the center y coordinate of the screen
+     * @param hexagonRadius - the horizontal radius of the hexagonal tiles
+     */
 	public static void genMap (double centerX, double centerY, double hexagonRadius) {
 		
 		
@@ -49,7 +56,10 @@ public class GameBoard {
 			tiles[i].drawTile();
 		}
 	}
-	
+	/**
+     * Moves Robber from one tile to another
+     * @param giveRobber - the tile to recieve the robber
+     */
 	public static void giveRobber (Tile giveRobber) {
 		for (Tile tile : tiles) 
 		{ 
@@ -64,7 +74,10 @@ public class GameBoard {
 		
 		
 	}
-	
+	/**
+     * Shuffles an array
+     * @param array - array to be shuffled
+     */
 	//https://www.programcreek.com/2012/02/java-method-to-shuffle-an-int-array-with-random-order/
 	public static int[] shuffle(int[] array) {
 		Random rgen = new Random();  // Random number generator			

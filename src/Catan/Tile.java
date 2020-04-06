@@ -1,4 +1,4 @@
-package catan;
+package Catan;
 import java.awt.Color;
 
 public class Tile {
@@ -23,6 +23,10 @@ public class Tile {
 			hasRobber = false;
 		}
 	}
+	
+	/**
+     * Draws Hexagonal Tile
+     */
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
