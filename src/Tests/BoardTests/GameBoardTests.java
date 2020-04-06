@@ -8,15 +8,30 @@ import org.junit.jupiter.api.BeforeEach;
 
 import catan.Board.StdDraw;
 import catan.Board.Tile;
+import catan.Board.GameBoard;
 
 
 import org.junit.jupiter.api.Test;
 
 class GameBoardTests {
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
+	private Tile[] testTiles;
+	
+	@BeforeEach
+	void setupTestingObject() {
+		testTiles = GameBoard.getTiles();
 	}
+	
+	@Test
+	void testDrawBackground() {
+		GameBoard.drawBackground();
+		assertTrue(true);
+	}
+	
+	@Test
+	void testShuffle(){
+
+		assertTrue(true);
+	}
+	
 
 }

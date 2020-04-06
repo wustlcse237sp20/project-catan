@@ -9,7 +9,7 @@ public class GameBoard {
 
 	private static int[] originalTileValues = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
 	private static Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
-	public static Tile[] tiles = new Tile[tileColors.length];
+	private static Tile[] tiles = new Tile[tileColors.length];
 	
 	public static void genBoard(double centerX, double centerY, double hexagonRadius) {
 		drawBackground();
@@ -52,6 +52,10 @@ public class GameBoard {
 			   newRobberTile.setRobber(true);
 		   }
 		}
+	}
+	
+	public static Tile[] getTiles() {
+		return tiles;
 	}
 	
 	//https://www.programcreek.com/2012/02/java-method-to-shuffle-an-int-array-with-random-order/
