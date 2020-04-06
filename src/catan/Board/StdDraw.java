@@ -1,4 +1,4 @@
-package catan;
+package catan.Board;
 /******************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw

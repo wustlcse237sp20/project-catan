@@ -1,4 +1,4 @@
-package catan;
+package catan.Cards;
 
 import java.util.Map;
 import java.util.HashMap;
