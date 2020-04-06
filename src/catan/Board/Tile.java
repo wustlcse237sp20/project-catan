@@ -19,7 +19,7 @@ public class Tile {
 	 * @param tileWidth
 	 */
 	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth) {
-		centerX =x;
+		centerX = x;
 		centerY = y;
 		value = tileValue;
 		color = tileColor;
