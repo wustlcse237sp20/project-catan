@@ -41,6 +41,8 @@ public class GameBoard {
 		}
 		Arrays.sort(tiles, (a,b) -> a.comparePoint(b.getPoint()));
 		System.out.println(tiles.length);
+		
+		//HEXAGONAL GRID OF TILES
 		Tile[][] gameboardInit = {
 				{null,null,null,null,null,null,null},
 				{null,null,tiles[0],tiles[1],tiles[2],null,null},
@@ -52,19 +54,15 @@ public class GameBoard {
 				
 		};
 		gameBoard =gameboardInit;
+		
 		for (int j = 0; j<gameBoard.length; j++){
 		     for (int i = 0; i<gameBoard[0].length; i++){
 		    	 if(gameBoard[j][i]!=null) {
 		    		 gameBoard[j][i].drawTile();
-		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );
-		    			
+		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );	
 		    	 }
-		    	 
 		     }
-		     }
-		
-		
-		
+		}
 	}
 	
 	public static void drawBackground() {
