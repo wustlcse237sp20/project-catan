@@ -34,4 +34,7 @@ public abstract class Structure implements Purchasable {
 		return cost;
 	}
 	
+	public void payout(CardType cardType) {
+		owner.addCardsToHand(cardType, type.getId() * vpYield);
+	}
 }
