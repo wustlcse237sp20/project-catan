@@ -1,6 +1,7 @@
 package catan.Board;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -13,6 +14,8 @@ import catan.Player.*;
 import catan.Structures.*;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameBoard {
 
@@ -21,6 +24,8 @@ public class GameBoard {
 	private static Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
 	private static Tile[] tiles = new Tile[tileColors.length];
 	private static Tile[][] gameBoard = new Tile[7][7];
+	public static Map <Integer,ArrayList<Tile>> tileValueMap = new HashMap<Integer,ArrayList<Tile>>();
+	
 	public static void genBoard(double centerX, double centerY, double hexagonRadius) {
 		drawBackground();
 		
@@ -47,8 +52,6 @@ public class GameBoard {
 		}
 		Arrays.sort(tiles, (a,b) -> a.comparePoint(b.getPoint()));
 		System.out.println(tiles.length);
-		
-		//HEXAGONAL GRID OF TILES
 		Tile[][] gameboardInit = {
 				{null,null,null,null,null,null,null},
 				{null,null,tiles[0],tiles[1],tiles[2],null,null},
@@ -62,13 +65,31 @@ public class GameBoard {
 		gameBoard =gameboardInit;
 		
 		for (int j = 0; j<gameBoard.length; j++){
+			
 		     for (int i = 0; i<gameBoard[0].length; i++){
 		    	 if(gameBoard[j][i]!=null) {
 		    		 gameBoard[j][i].drawTile();
-		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );	
+		    		 
+		    		ArrayList<Tile> tileArray = tileValueMap.get(gameBoard[j][i].getValue());
+		    		tileArray.add(gameBoard[j][i]);
+		    		tileValueMap.put(gameBoard[j][i].getValue(), tileArray);
 		    	 }
+		    	 
 		     }
-		}
+		     }
+		
+		
+		for (int j = 0; j<gameBoard.length; j++){
+			
+		     for (int i = 0; i<gameBoard[0].length; i++){
+		    	 if(gameBoard[j][i]!=null) {
+		    		 gameBoard[j][i].drawTile();
+		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );
+		    			
+		    	 }
+		    	 
+		     }
+		     }	
 	}
 	
 	public static void drawBackground() {
@@ -104,6 +125,10 @@ public class GameBoard {
 		return array;
 	}
 	
+	public void payout(int roll) {
+		ArrayList<Tile> tiles = tileValueMap.get(roll);
+		tiles.forEach((t) -> t.payout());
+	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub 

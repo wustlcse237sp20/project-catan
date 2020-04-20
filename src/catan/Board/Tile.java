@@ -3,21 +3,24 @@ import java.awt.Color;
 import java.awt.Point;
 
 import catan.Board.StdDraw;
+import catan.Cards.CardType;
 import catan.Player.Player;
 import catan.Structures.RoadStructure;
 import catan.Structures.SettlementStructure;
+import catan.Structures.Structure;
 
 public class Tile {
 	private double centerX;
 	private double centerY;
 	private int value;
+	private CardType cardType;
 	private Color color;
 	private double width;
 	private boolean hasRobber;
 	
 	
-	private Player[] tileRoads; //represents the EDGES of each tile where roads are
-	private Player[] tileSettlements; //represents CORNERS of each tile where settlements are
+	private Structure[] tileRoads; //represents the EDGES of each tile where roads are
+	private Structure[] tileSettlements; //represents CORNERS of each tile where settlements are
 	
 	/**
 	 * Initializes Tile with the following parameters:
@@ -36,8 +39,8 @@ public class Tile {
 		color = tileColor;
 		width = tileWidth;
 		
-		tileRoads = new Player[6]; 
-		tileSettlements = new Player[6];
+		tileRoads = new Structure[6]; 
+		tileSettlements = new Structure[6];
 		
 		if (tileValue==0) {
 			hasRobber = true;
@@ -103,16 +106,18 @@ public class Tile {
 
 	
 	
-	
+	public int getValue() {
+		return value;
+	}
 	
 	 
 	
-	public Player[] getRoads() {
+	public Structure[] getRoads() {
 		return tileRoads;
 	}
 	
 	
-	public Player[] getSettlements() {
+	public Structure[] getSettlements() {
 		return tileSettlements;
 	}
 	
@@ -128,7 +133,7 @@ public class Tile {
 			return 0;
 		}
 		else {
-			tile.getRoads()[index] = builder;
+			tile.getRoads()[index] = new RoadStructure(builder);
 			return 1;
 		}
 	}
@@ -145,12 +150,16 @@ public class Tile {
 			return 0;
 		}
 		else {
-			tile.getSettlements()[index] = builder;
+			tile.getSettlements()[index] = new SettlementStructure(builder);
 			return 1;
 		}
 	}
 	
-	
+	public void payout() {
+		for (Structure structure:tileSettlements) {
+			structure.payout(cardType);
+		}
+	}
 	
   public static void main(String[] args) {
 		// TODO Auto-generated method stub 

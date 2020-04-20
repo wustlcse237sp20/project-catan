@@ -37,4 +37,8 @@ public abstract class Structure implements Purchasable {
 	public void payout(CardType cardType) {
 		owner.addCardsToHand(cardType, type.getId() * vpYield);
 	}
+	
+	public Player getOwner() {
+		return owner;
+	}
 }

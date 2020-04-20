@@ -11,6 +11,8 @@ import catan.Board.StdDraw;
 import catan.Board.Tile;
 import catan.Player.Player;
 import catan.Player.PlayerType;
+import catan.Structures.RoadStructure;
+import catan.Structures.SettlementStructure;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,13 +36,13 @@ private Player player3;
 		player2 = new Player(PlayerType.BLUE);
 		player3 = new Player(PlayerType.ORANGE);
 		
-		testTile.getRoads()[0] = player1;
-		testTile.getRoads()[1] = player2;
-		testTile.getRoads()[2] = player3;
+		testTile.getRoads()[0] = new RoadStructure(player1);
+		testTile.getRoads()[1] = new RoadStructure(player2);
+		testTile.getRoads()[2] = new RoadStructure(player3);
 		
-		testTile.getSettlements()[0] = player1;
-		testTile.getSettlements()[1] = player2;
-		testTile.getSettlements()[2] = player3;
+		testTile.getSettlements()[0] = new SettlementStructure(player1);
+		testTile.getSettlements()[1] = new SettlementStructure(player2);
+		testTile.getSettlements()[2] = new SettlementStructure(player3);
 	}
 
 	@Test
@@ -67,16 +69,16 @@ private Player player3;
 	
 	@Test 
 	void testGetRoads(){
-		assertTrue(testTile.getRoads()[0] == player1);
-		assertTrue(testTile.getRoads()[1] == player2);
-		assertTrue(testTile.getRoads()[2] == player3);
+		assertTrue(testTile.getRoads()[0].getOwner() == player1);
+		assertTrue(testTile.getRoads()[1].getOwner() == player2);
+		assertTrue(testTile.getRoads()[2].getOwner() == player3);
 	}
 	
 	@Test
 	void testGetSettlements() {
-		assertTrue(testTile.getSettlements()[0] == player1);
-		assertTrue(testTile.getSettlements()[1] == player2);
-		assertTrue(testTile.getSettlements()[2] == player3);
+		assertTrue(testTile.getSettlements()[0].getOwner() == player1);
+		assertTrue(testTile.getSettlements()[1].getOwner() == player2);
+		assertTrue(testTile.getSettlements()[2].getOwner() == player3);
 	}
 	
 	@Test
