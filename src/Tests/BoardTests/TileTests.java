@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 class TileTests {
 	
 private Tile testTile;
+private Player testPlayer;
 
 	@BeforeEach
 	void setupTestingObject() {
@@ -27,7 +28,8 @@ private Tile testTile;
 		double tileWidth = 20;
 		
 		testTile = new Tile(x,y,tileValue,tileColor,tileWidth);
-		Player testPlayer = new Player(PlayerType.WHITE);
+		testPlayer = new Player(PlayerType.WHITE);
+		
 	}
 
 	@Test
@@ -49,6 +51,7 @@ private Tile testTile;
 	
 	@Test
 	void testGetPoint() {
+		int i = buildRoad(testTile, 0, testPlayer);
 //		assertTrue(testTile.getPoint().x == 100 &&testTile.getPoint().y == 100);
 		assertTrue(true);
 	}

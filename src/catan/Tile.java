@@ -46,6 +46,8 @@ public class Tile {
 		}
 	}
 	
+
+	
 	/**
 	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
 	 */
@@ -107,6 +109,7 @@ public class Tile {
 	public Player[] getRoads() {
 		return tileRoads;
 	}
+	
 	
 	public Player[] getSettlements() {
 		return tileSettlements;
