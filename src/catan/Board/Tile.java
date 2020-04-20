@@ -10,6 +10,7 @@ public class Tile {
 	private double width;
 	private boolean hasRobber;
 	
+	
 	/**
 	 * Initializes Tile with the following parameters:
 	 * @param x x-coordinate of center of hexagon tile
