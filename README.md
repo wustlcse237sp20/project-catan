@@ -23,11 +23,11 @@
   * Evan added in arrays as tile member variables: these arrays will keep track of roads and settlements that are located on each tile.     Evan also added in logic so the game can determine if a road is shared by any two tiles
   
   - What user stories do you intend to complete next iteration?
-  This iteration we finalized the groundwork necessary for the game logic to be created.  With our objects nearly complelety finished and our classes connect we plan on focusing on game and player logic in our final iteration.  This includes tasks such handling player turns, finalizing road and structure visualization on gameboard, and win conditions.
+ *  This iteration we finalized the groundwork necessary for the game logic to be created.  With our objects nearly complelety finished and our classes connect we plan on focusing on game and player logic in our final iteration.  This includes tasks such handling player turns, finalizing road and structure visualization on gameboard, and win conditions.
   
   
 - Is there anything that you implemented but doesn't currently work?
-Roads and Structures are not yet drawn on the board.  Our game is also not currently functional as all our pieces are built but the game rules have not been impleted yet.
+* Roads and Structures are not yet drawn on the board.  Our game is also not currently functional as all our pieces are built but the game rules have not been impleted yet.
 
 ## Testing instructions
 
