@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 class TileTests {
 	
-	private Tile testTile;
-	
+private Tile testTile;
+
 	@BeforeEach
 	void setupTestingObject() {
 		double x = 100;
@@ -24,24 +24,26 @@ class TileTests {
 		double tileWidth = 20;
 		testTile = new Tile(x,y,tileValue,tileColor,tileWidth);
 	}
-	
+
 	@Test
 	void testDrawTile() {
 		testTile.drawTile();
 		assertTrue(true);
 	}
-	
+
 	@Test
 	void testHasRobber() {
-		testTile.hasRobber();
-		assertTrue(true);
+		assertTrue(testTile.hasRobber()==false);
 	}
-	
+
 	@Test
 	void testSetRobber() {
-		testTile.setRobber(false);
 		testTile.setRobber(true);
+		assertTrue(testTile.hasRobber()==true);
+	}
 
+	void testGetPoint() {
+//		assertTrue(testTile.getPoint().x == 100 &&testTile.getPoint().y == 100);
 		assertTrue(true);
 	}
 

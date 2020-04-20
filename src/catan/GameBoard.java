@@ -3,6 +3,9 @@ package catan;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Random;
+
+import catan.Board.StdDraw;
+
 import java.util.Collections;
 
 public class GameBoard {

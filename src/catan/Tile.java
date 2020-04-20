@@ -1,8 +1,10 @@
-package catan.Board;
+package catan;
 import java.awt.Color;
+import java.awt.Point;
+
+import catan.Board.StdDraw;
 
 public class Tile {
-
 	private double centerX;
 	private double centerY;
 	private int value;
@@ -59,11 +61,11 @@ public class Tile {
 		return hasRobber;
 	}
 	
-<<<<<<< HEAD
 	public Point.Double getPoint() {
 		Point.Double pointDouble = new Point.Double(centerX, centerY);
 		return pointDouble;
 	}
+	
 	public int comparePoint (Point.Double compared) {
 		if(compared.x >  centerX) {
 			return -1;
@@ -77,16 +79,15 @@ public class Tile {
 			} else {
 				return 0;
 			}
-			
-			
 		}
-		
 	}
 	
-=======
->>>>>>> Hexagonal_Grid_Implementation
 	public void setRobber(boolean newValue) {
 		hasRobber = newValue;
+	}
+  public static void main(String[] args) {
+		// TODO Auto-generated method stub 
+      System.out.println("SDFSDF");
 	}
 }
 
