@@ -3,14 +3,18 @@ package catan.Board;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Random;
+
+import catan.Board.StdDraw;
+
 import java.util.Collections;
 
 public class GameBoard {
 
+	
 	private static int[] originalTileValues = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
 	private static Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
 	private static Tile[] tiles = new Tile[tileColors.length];
-	
+	private static Tile[][] gameBoard = new Tile[7][7];
 	public static void genBoard(double centerX, double centerY, double hexagonRadius) {
 		drawBackground();
 		
@@ -33,7 +37,31 @@ public class GameBoard {
 					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius);
 					robberOffset=1;
 			}
-			tiles[i].drawTile();
+			//tiles[i].drawTile();
+		}
+		Arrays.sort(tiles, (a,b) -> a.comparePoint(b.getPoint()));
+		System.out.println(tiles.length);
+		
+		//HEXAGONAL GRID OF TILES
+		Tile[][] gameboardInit = {
+				{null,null,null,null,null,null,null},
+				{null,null,tiles[0],tiles[1],tiles[2],null,null},
+				{null,null,tiles[3],tiles[4],tiles[5],tiles[6],null},
+				{null,tiles[7],tiles[8],tiles[9],tiles[10],tiles[11],null},
+				{null,null,tiles[12],tiles[13],tiles[14],tiles[15],null},
+				{null,null,tiles[16],tiles[17],tiles[18],null,null},
+				{null,null,null,null,null,null,null},
+				
+		};
+		gameBoard =gameboardInit;
+		
+		for (int j = 0; j<gameBoard.length; j++){
+		     for (int i = 0; i<gameBoard[0].length; i++){
+		    	 if(gameBoard[j][i]!=null) {
+		    		 gameBoard[j][i].drawTile();
+		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );	
+		    	 }
+		     }
 		}
 	}
 	
@@ -73,6 +101,7 @@ public class GameBoard {
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub 
+      System.out.println("SDFSDF");
 		double centerX = .5;
 		double centerY= .5;
 		double hexagonRadius=.07;
