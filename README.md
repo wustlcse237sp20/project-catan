@@ -29,6 +29,10 @@
 - Is there anything that you implemented but doesn't currently work?
 * Roads and Structures are not yet drawn on the board.  Our game is also not currently functional as all our pieces are built but the game rules have not been impleted yet.
 
+
+
+Note From Andy: At the end of this iteration I ran into a lot of issues with Eclipse. I spent several hours on stack overflow trying to fix it but was unable to.  The temporary solution to this was copying relevant code to a new project and working from their and sending over my code manually to be merged. I will get this fixed for the next iteration.
+
 ## Testing instructions
 
 - If you dont know what Catan is, check out the rules
