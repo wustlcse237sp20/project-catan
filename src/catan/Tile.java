@@ -101,6 +101,12 @@ public class Tile {
 		hasRobber = newValue;
 	}
 
+	
+	
+	
+	
+	 
+	
 	public Player[] getRoads() {
 		return tileRoads;
 	}
