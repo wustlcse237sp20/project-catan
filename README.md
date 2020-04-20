@@ -19,7 +19,7 @@
 
 - What user stories were completed this iteration?
   * Andy adjusted the game board so it was represented by a hexagonal 2-D Array of Tiles as well as laid groundwork for final iteration by allowing tiles to be aware of the tiles adjacent to them.
-  * Jakob implemented logic that determines which tiles share a settlement placed on a tile corner
+  * Jakob implemented logic that handles paying out resources. Made GameBoard use data structures built in iteration 1
   * Evan added in arrays as tile member variables: these arrays will keep track of roads and settlements that are located on each tile.     Evan also added in logic so the game can determine if a road is shared by any two tiles
   
   - What user stories do you intend to complete next iteration?
@@ -28,7 +28,7 @@
   
 - Is there anything that you implemented but doesn't currently work?
 * Roads and Structures are not yet drawn on the board.  Our game is also not currently functional as all our pieces are built but the game rules have not been impleted yet.
-
+* Adjancy tests dont quite work yet 
 
 
 Note From Andy: At the end of this iteration I ran into a lot of issues with Eclipse. I spent several hours on stack overflow trying to fix it but was unable to.  The temporary solution to this was copying relevant code to a new project and working from their and sending over my code manually to be merged. I will get this fixed for the next iteration.
