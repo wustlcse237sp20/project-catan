@@ -17,7 +17,9 @@ import org.junit.jupiter.api.Test;
 class TileTests {
 	
 private Tile testTile;
-private Player testPlayer;
+private Player player1;
+private Player player2;
+private Player player3;
 
 	@BeforeEach
 	void setupTestingObject() {
@@ -28,8 +30,17 @@ private Player testPlayer;
 		double tileWidth = 20;
 		
 		testTile = new Tile(x,y,tileValue,tileColor,tileWidth);
-		testPlayer = new Player(PlayerType.WHITE);
+		player1 = new Player(PlayerType.WHITE);		
+		player2 = new Player(PlayerType.BLUE);
+		player3 = new Player(PlayerType.ORANGE);
 		
+		testTile.getRoads()[0] = player1;
+		testTile.getRoads()[1] = player2;
+		testTile.getRoads()[2] = player3;
+		
+		testTile.getSettlements()[0] = player1;
+		testTile.getSettlements()[1] = player2;
+		testTile.getSettlements()[2] = player3;
 	}
 
 	@Test
@@ -51,31 +62,48 @@ private Player testPlayer;
 	
 	@Test
 	void testGetPoint() {
-		int i = buildRoad(testTile, 0, testPlayer);
-//		assertTrue(testTile.getPoint().x == 100 &&testTile.getPoint().y == 100);
-		assertTrue(true);
+		assertTrue(testTile.getPoint().x == 100 &&testTile.getPoint().y == 100);
 	}
 	
 	@Test 
 	void testGetRoads(){
-		//should return the tileRoads variable 
+		assertTrue(testTile.getRoads()[0] == player1);
+		assertTrue(testTile.getRoads()[1] == player2);
+		assertTrue(testTile.getRoads()[2] == player3);
 	}
 	
 	@Test
 	void testGetSettlements() {
-		//return tileSettlements variable
+		assertTrue(testTile.getSettlements()[0] == player1);
+		assertTrue(testTile.getSettlements()[1] == player2);
+		assertTrue(testTile.getSettlements()[2] == player3);
 	}
 	
 	@Test
 	void testBuildRoad() {
-		//function should build a road at index ___ of array if empty. If not, return ___
+		assertFalse(testTile.buildRoad(testTile, 0, player1) == 1);
+		assertFalse(testTile.buildRoad(testTile, 1, player2) == 1);
+		assertFalse(testTile.buildRoad(testTile, 2, player3) == 1);
+		
+		assertTrue(testTile.buildRoad(testTile, 3, player3) == 1);
+		assertTrue(testTile.buildRoad(testTile, 4, player3) == 1);
+		assertTrue(testTile.buildRoad(testTile, 5, player3) == 1);
+		
+		assertFalse(testTile.buildRoad(testTile, 6, player3) == 1);
+
 	}
 	
 	@Test
 	void testBuildSettlement() {
-		//function should build a settlement at index ___ of array if empty. If not, return ___
+		assertFalse(testTile.buildSettlement(testTile, 0, player1) == 1);
+		assertFalse(testTile.buildSettlement(testTile, 1, player2) == 1);
+		assertFalse(testTile.buildSettlement(testTile, 2, player3) == 1);
+		
+		assertTrue(testTile.buildSettlement(testTile, 3, player3) == 1);
+		assertTrue(testTile.buildSettlement(testTile, 4, player3) == 1);
+		assertTrue(testTile.buildSettlement(testTile, 5, player3) == 1);
+		
+		assertFalse(testTile.buildSettlement(testTile, 6, player3) == 1);	
 	}
 	
-
-
 }
