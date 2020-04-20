@@ -1,10 +1,8 @@
-package catan;
+package catan.Board;
 import java.awt.Color;
-import java.awt.Point;
-
-import catan.Board.StdDraw;
 
 public class Tile {
+
 	private double centerX;
 	private double centerY;
 	private int value;
@@ -61,35 +59,8 @@ public class Tile {
 		return hasRobber;
 	}
 	
-	public Point.Double getPoint() {
-		Point.Double pointDouble = new Point.Double(centerX, centerY);
-		return pointDouble;
-	}
-	public int comparePoint (Point.Double compared) {
-		if(compared.x >  centerX) {
-			return -1;
-		} else if (compared.x <  centerX) {
-			return 1;
-		} else {
-			if(compared.y >  centerY) {
-				return -1;
-			} else if (compared.y <  centerY) {
-				return 1;
-			} else {
-				return 0;
-			}
-			
-			
-		}
-		
-	}
-	
 	public void setRobber(boolean newValue) {
 		hasRobber = newValue;
-	}
-  public static void main(String[] args) {
-		// TODO Auto-generated method stub 
-      System.out.println("SDFSDF");
 	}
 }
 
