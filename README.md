@@ -35,8 +35,13 @@ Note From Andy: At the end of this iteration I ran into a lot of issues with Ecl
 
 ## Testing instructions
 
-- If you dont know what Catan is, check out the rules
+- If you're not familiar with Catan, check out the rules here: https://www.wired.co.uk/article/beginners-guide-to-settlers-of-catan
 
-- Take a look at our board renderer, you can run it in eclipse (so long as you have javaSE-13 as your system library)
+- Currently have a runGame.sh script that can be executed using "./runGame.sh" in command line. However, this does not seem to be working for some reason (must be debugged). Instead, please run our code through Eclipse:
 
-- Take a look at the tests for our data structures, you can run these in eclipse if you want
+- Open project in Eclipse --> src --> catan --> Board --> GameBoard.java
+
+- Run GameBoard.java!
+
+- Tests can be found in project --> tests and tests are available for each class/group
+
