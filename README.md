@@ -3,7 +3,6 @@
 ## Iteration 1: Basic info
 
 - What user stories were completed this iteration?
-
   * Andy worked on the main User Story, the visual game board
   * Jakob set up all the data structures needed to run the game. These will likely evolve over time
   * Evan set up our testing system so we can validadate the functionality of our datastructures and eventually other functions
@@ -15,6 +14,13 @@
 - Is there anything that you implemented but doesn't currently work?
   * the datastructures are implemented and work, but havent been connected to the game board
   * The visuals for the gameboard are in place, but nothing is interactive yet
+  
+## Iteration 2: Building Game Board Functionality
+
+- What user stories were completed this iteration?
+ * Andy adjusted the game board so it was represented by a hexagonal 2-D Array of Tiles 
+ * Evan added in arrays as tile member variables: these arrays will keep track of roads and settlements that are located on each tile.      Evan also added in logic so the game can determine if a road is shared by any two tiles
+ * Jakob implemented logic that determines which tiles share a settlement placed on a tile corner
   
 ## Testing instructions
 
