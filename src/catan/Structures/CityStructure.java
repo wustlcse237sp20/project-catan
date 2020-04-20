@@ -17,7 +17,7 @@ public class CityStructure extends Structure {
 	static int vpYield = 2;
 	
 	public CityStructure(Player o) {
-		super(o);
+		super(o, 2);
 	}
 
 }

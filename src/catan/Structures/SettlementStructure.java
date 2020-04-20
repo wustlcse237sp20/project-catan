@@ -7,7 +7,7 @@ import catan.Cards.CardType;
 import catan.Player.Player;
 
 public class SettlementStructure extends Structure {
-	static StructureType type = StructureType.SETTLEMENT;
+	StructureType type = StructureType.SETTLEMENT;
 	static Map<CardType, Integer> cost;
 	static {
 		cost = new HashMap<CardType, Integer>();
@@ -16,10 +16,10 @@ public class SettlementStructure extends Structure {
 		cost.put(CardType.WHEAT, 1);
 		cost.put(CardType.SHEEP, 1);
 	}
-	static int vpYield = 1;
+	int vpYield = 1;
 	
 	public SettlementStructure(Player o) {
-		super(o);
+		super(o, 1);
 	}
 
 }

@@ -1,10 +1,12 @@
 package catan.Board;
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import catan.Board.StdDraw;
 import catan.Cards.CardType;
 import catan.Player.Player;
+import catan.Structures.CityStructure;
 import catan.Structures.RoadStructure;
 import catan.Structures.SettlementStructure;
 import catan.Structures.Structure;
@@ -17,6 +19,7 @@ public class Tile {
 	private Color color;
 	private double width;
 	private boolean hasRobber;
+	private  ArrayList<Tile> adjacent;
 	
 	
 	private Structure[] tileRoads; //represents the EDGES of each tile where roads are
@@ -32,15 +35,18 @@ public class Tile {
 	 * @param tileRoads array of index 6. Each cell represents an edge on the tile, with index 0 referencing middle-left edge, going clockwise
 	 * @param tileSettlements is same as tileRoads but representing corner of tile, with index 0 referencing the top corner, going clockwise
 	 */
-	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth) {
+	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth, CardType type) {
 		centerX = x;
 		centerY = y;
 		value = tileValue;
 		color = tileColor;
 		width = tileWidth;
+		cardType = type;
 		
 		tileRoads = new Structure[6]; 
 		tileSettlements = new Structure[6];
+		
+		adjacent = new ArrayList<Tile>();
 		
 		if (tileValue==0) {
 			hasRobber = true;
@@ -49,7 +55,13 @@ public class Tile {
 		}
 	}
 	
-
+	public void setAdjacent( ArrayList<Tile> set ) {
+		adjacent = set;
+	}
+	
+	public boolean isAdjacent( Tile otherTile ) {
+		return this.adjacent.contains(otherTile);
+	}
 	
 	/**
 	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
@@ -125,15 +137,15 @@ public class Tile {
 	 * Updates Tile's tileRoads[] array with a new road from a Player.
 	 * @return 0 if index is taken, 1 if index is available and road inserted
 	*/
-	public int buildRoad(Tile tile, int index, Player builder) {
+	public int buildRoad( int index, Player builder) {
 		if(index < 0 || index > 5) { //index out of bounds
 			return 0;
 		}
-		if(tile.getRoads()[index] != null) { //if someone has built there
+		if(this.getRoads()[index] != null) { //if someone has built there
 			return 0;
 		}
 		else {
-			tile.getRoads()[index] = new RoadStructure(builder);
+			this.getRoads()[index] = new RoadStructure(builder);
 			return 1;
 		}
 	}
@@ -142,22 +154,32 @@ public class Tile {
 	 * Updates Tile's tileSettlements[] array with a new settlement from a Player.
 	 * @return 0 if index is taken, 1 if index is available and settlement built
 	*/
-	public int buildSettlement(Tile tile, int index, Player builder) {
+	public int buildSettlement( int index, Player builder) {
 		if(index < 0 || index > 5) { //index out of bounds
 			return 0;
 		}
-		if(tile.getSettlements()[index] != null) { //if someone has built there
+		if(this.tileSettlements[index] != null) { //if someone has built there
 			return 0;
 		}
 		else {
-			tile.getSettlements()[index] = new SettlementStructure(builder);
+			this.tileSettlements[index] = new SettlementStructure(builder);
 			return 1;
 		}
 	}
 	
+	public int buildCity( int index, Player builder) {
+		if(index < 0 || index > 5) { //index out of bounds
+			return 0;
+		}
+		this.tileSettlements[index] = new CityStructure(builder);
+		return 1;
+	}
+	
 	public void payout() {
 		for (Structure structure:tileSettlements) {
-			structure.payout(cardType);
+			if (structure != null) {
+				structure.payout(cardType);
+			}
 		}
 	}
 	

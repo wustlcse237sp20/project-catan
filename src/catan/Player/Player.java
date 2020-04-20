@@ -37,7 +37,9 @@ public class Player {
 	
 	// for adding resource card(s) when you have the card type but no Card instance
 	public void addCardsToHand(CardType cardType, int amount) {
+		System.out.println("adding " + amount + " cards");
 		int newAmount = handCardAmounts.get(cardType) + amount;
+		System.out.println("new amount " + newAmount + " cards");
 		handCardAmounts.replace(cardType, newAmount);
 		
 	}
@@ -60,6 +62,12 @@ public class Player {
 		if(newCard instanceof DevelopmentCard) {
 			devCards.add((DevelopmentCard)newCard);
 		}
+	}
+	
+	// for checking a player hand
+	public int getCardsInHand(CardType type) {
+		int numCards = handCardAmounts.get(type);
+		return numCards;
 	}
 	
 	// Structure Factory

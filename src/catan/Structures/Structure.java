@@ -7,14 +7,15 @@ import catan.Cards.CardType;
 import catan.Player.Player;
 
 public abstract class Structure implements Purchasable {
-	static StructureType type;
+	StructureType type;
 	static Map<CardType, Integer> cost;
-	static int vpYield;
+	int vpYield;
 	
 	Player owner;
 	
-	public Structure(Player o) {
+	public Structure(Player o, int yield) {
 		this.owner = o;
+		this.vpYield = yield;
 	}
 	
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
@@ -35,7 +36,7 @@ public abstract class Structure implements Purchasable {
 	}
 	
 	public void payout(CardType cardType) {
-		owner.addCardsToHand(cardType, type.getId() * vpYield);
+		owner.addCardsToHand(cardType, vpYield);
 	}
 	
 	public Player getOwner() {
