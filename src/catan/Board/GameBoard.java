@@ -75,6 +75,9 @@ public class GameBoard {
 		    		 gameBoard[j][i].drawTile();
 		    		 
 		    		ArrayList<Tile> tileArray = tileValueMap.get(gameBoard[j][i].getValue());
+		    		if (tileArray == null) {
+		    			tileArray = new ArrayList<Tile>();
+		    		}
 		    		tileArray.add(gameBoard[j][i]);
 		    		tileValueMap.put(gameBoard[j][i].getValue(), tileArray);
 		    	 }
