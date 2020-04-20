@@ -18,9 +18,9 @@
 ## Iteration 2: Building Game Board Functionality
 
 - What user stories were completed this iteration?
- * Andy adjusted the game board so it was represented by a hexagonal 2-D Array of Tiles 
- * Evan added in arrays as tile member variables: these arrays will keep track of roads and settlements that are located on each tile.      Evan also added in logic so the game can determine if a road is shared by any two tiles
- * Jakob implemented logic that determines which tiles share a settlement placed on a tile corner
+  * Andy adjusted the game board so it was represented by a hexagonal 2-D Array of Tiles
+  * Jakob implemented logic that determines which tiles share a settlement placed on a tile corner
+  * Evan added in arrays as tile member variables: these arrays will keep track of roads and settlements that are located on each tile.     Evan also added in logic so the game can determine if a road is shared by any two tiles
   
 ## Testing instructions
 
