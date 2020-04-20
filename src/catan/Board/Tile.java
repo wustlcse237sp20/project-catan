@@ -121,6 +121,9 @@ public class Tile {
 	 * @return 0 if index is taken, 1 if index is available and road inserted
 	*/
 	public int buildRoad(Tile tile, int index, Player builder) {
+		if(index < 0 || index > 5) { //index out of bounds
+			return 0;
+		}
 		if(tile.getRoads()[index] != null) { //if someone has built there
 			return 0;
 		}
@@ -135,6 +138,9 @@ public class Tile {
 	 * @return 0 if index is taken, 1 if index is available and settlement built
 	*/
 	public int buildSettlement(Tile tile, int index, Player builder) {
+		if(index < 0 || index > 5) { //index out of bounds
+			return 0;
+		}
 		if(tile.getSettlements()[index] != null) { //if someone has built there
 			return 0;
 		}
