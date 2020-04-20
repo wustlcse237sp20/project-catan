@@ -1,5 +1,6 @@
 package catan.Board;
 import java.awt.Color;
+import java.awt.Point;
 
 public class Tile {
 
@@ -59,7 +60,6 @@ public class Tile {
 		return hasRobber;
 	}
 	
-<<<<<<< HEAD
 	public Point.Double getPoint() {
 		Point.Double pointDouble = new Point.Double(centerX, centerY);
 		return pointDouble;
@@ -83,8 +83,6 @@ public class Tile {
 		
 	}
 	
-=======
->>>>>>> Hexagonal_Grid_Implementation
 	public void setRobber(boolean newValue) {
 		hasRobber = newValue;
 	}
