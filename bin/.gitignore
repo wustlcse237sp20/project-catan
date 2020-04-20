@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-/.metadata/
+/.metadata
 /.gitignore
-/catan/
-=======
-/catan/
-/Tests/
->>>>>>> Hexagonal_Grid_Implementation
-/test/
+
