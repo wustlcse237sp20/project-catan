@@ -5,6 +5,12 @@ import java.util.Arrays;
 import java.util.Random;
 
 import catan.Board.StdDraw;
+import catan.Board.Tile;
+
+import catan.Cards.*;
+
+import catan.Player.*;
+import catan.Structures.*;
 
 import java.util.Collections;
 
