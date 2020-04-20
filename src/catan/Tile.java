@@ -65,6 +65,7 @@ public class Tile {
 		Point.Double pointDouble = new Point.Double(centerX, centerY);
 		return pointDouble;
 	}
+	
 	public int comparePoint (Point.Double compared) {
 		if(compared.x >  centerX) {
 			return -1;
@@ -78,10 +79,7 @@ public class Tile {
 			} else {
 				return 0;
 			}
-			
-			
 		}
-		
 	}
 	
 	public void setRobber(boolean newValue) {
