@@ -1,4 +1,5 @@
 #!/bin/bash
-cd src/catan/Board
-javac GameBoard.java
-java GameBoard
+
+cd src
+javac ./catan/Gameboard.java
+java catan.Gameboard
