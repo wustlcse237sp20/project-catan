@@ -19,6 +19,9 @@ public class CityStructure extends Structure {
 
 	@Override
 	public void build(Player player, GameBoard board) {
+		if(player.purchase(this)) {
+			
+		}
 		System.out.print("Building City");
 	}
 }
