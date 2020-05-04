@@ -22,7 +22,7 @@ public class Gameboard {
 	private Tile[][] gameBoard = new Tile[7][7];
 	public  Map <Integer,ArrayList<Tile>> tileValueMap = new HashMap<Integer,ArrayList<Tile>>();
 	private double centerX, centerY, hexagonRadius;
-	
+	public  Map <String,int[]> tileNameMap = new HashMap<String,int[]>();
 	public Gameboard(double gameCenterX,double gameCenterY,double gameHexagonRadius) {
 		centerX = gameCenterX;
 		centerY= gameCenterY;
@@ -51,6 +51,7 @@ public class Gameboard {
 					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius, CardType.WHEAT,tileNames[i]);
 					robberOffset=1;
 			}
+			
 			//tiles[i].drawTile();
 		}
 		Arrays.sort(tiles, (a,b) -> a.comparePoint(b.getPoint()));
@@ -72,7 +73,8 @@ public class Gameboard {
 		     for (int i = 0; i<gameBoard[0].length; i++){
 		    	 if(gameBoard[j][i]!=null) {
 		    		 gameBoard[j][i].drawTile();
-		    		 
+		    		 int[] pos= {j,i};
+		    		 tileNameMap.put(gameBoard[j][i].getName(), pos);
 		    		ArrayList<Tile> tileArray = tileValueMap.get(gameBoard[j][i].getValue());
 		    		
 		    		tileValueMap.put(gameBoard[j][i].getValue(), tileArray);
@@ -81,10 +83,7 @@ public class Gameboard {
 		     }
 		     }
 		
-		
-		
 		int [][] offsets = {{-1,-1,},{-1,0,},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
-
 		for (int j = 0; j<gameBoard.length; j++){
 		     for (int i = 0; i<gameBoard[0].length; i++){
 		    	 if(gameBoard[j][i]!=null) {
@@ -112,6 +111,120 @@ public class Gameboard {
 		
 	}
 	
+	
+	public void buildRoad (RoadStructure r, String tileName, int pos, Player builder) {
+		int[] coord = tileNameMap.get(tileName);
+		int result = gameBoard[coord[0]][coord[1]].buildRoad(pos,builder);
+		
+		if(result!=0) {
+			switch(pos) {
+			  case 5:
+				gameBoard[coord[0]+1][coord[1]-1].buildRoad(2,builder);
+			    
+			    break;
+			  case 0:
+				  gameBoard[coord[0]+1][coord[1]-0].buildRoad(3,builder);
+			    break;
+			  case 1:
+				  gameBoard[coord[0]+1][coord[1]+1].buildRoad(4,builder);
+				    break;
+			  case 2:
+				  gameBoard[coord[0]][coord[1]-1].buildRoad(5,builder);
+				    break;
+			  case 3:
+				  gameBoard[coord[0]-1][coord[1]].buildRoad(0,builder);
+				    break;
+			  case 4:
+				  gameBoard[coord[0]][coord[1]-1].buildRoad(1,builder);
+				    break;
+			  default:
+			    System.out.println("RIP");
+			}
+		}
+		
+		
+		
+	}
+	public void buildSettlement (Player builder, String tileName, int pos) {
+		int[] coord = tileNameMap.get(tileName);
+		int result = gameBoard[coord[0]][coord[1]].buildSettlement(pos,builder);
+		
+		if(result!=0) {
+			switch(pos) {
+			 
+			  case 0:
+				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(2, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(4, builder);
+			    break;
+			  case 1:
+				  gameBoard[coord[0]+1][coord[1]+1].buildSettlement(5, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(3, builder);
+				    break;
+			  case 2:
+				  
+				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(4, builder);
+				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(0, builder);
+				    break;
+			  case 3:
+				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(1, builder);
+				gameBoard[coord[0]-0][coord[1]+1].buildSettlement(5, builder);	  
+				  
+				    break;
+			  case 4:
+				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(0, builder);
+				gameBoard[coord[0]-0][coord[1]-1].buildSettlement(2, builder);	 
+								  
+				 break;
+			  case 5:
+				gameBoard[coord[0]-1][coord[1]-1].buildSettlement(3, builder);
+				gameBoard[coord[0]-0][coord[1]-1].buildSettlement(1, builder);	 
+					
+				    break;
+			  default:
+			    System.out.println("RIP");
+			}}
+		}
+		public void buildCity (Player builder, String tileName, int pos) {
+			int[] coord = tileNameMap.get(tileName);
+			int result = gameBoard[coord[0]][coord[1]].buildCity(pos,builder);
+			
+			if(result!=0) {
+				switch(pos) {
+				 
+				  case 0:
+					gameBoard[coord[0]+1][coord[1]-1].buildCity(2, builder);
+					gameBoard[coord[0]+1][coord[1]+0].buildCity(4, builder);
+				    break;
+				  case 1:
+					  gameBoard[coord[0]+1][coord[1]+1].buildCity(5, builder);
+					gameBoard[coord[0]+1][coord[1]+0].buildCity(3, builder);
+					    break;
+				  case 2:
+					  
+					gameBoard[coord[0]+1][coord[1]+1].buildCity(4, builder);
+					gameBoard[coord[0]+0][coord[1]+1].buildCity(0, builder);
+					    break;
+				  case 3:
+					gameBoard[coord[0]-1][coord[1]+0].buildCity(1, builder);
+					gameBoard[coord[0]-0][coord[1]+1].buildCity(5, builder);	  
+					  
+					    break;
+				  case 4:
+					gameBoard[coord[0]-1][coord[1]+0].buildCity(0, builder);
+					gameBoard[coord[0]-0][coord[1]-1].buildCity(2, builder);	 
+									  
+					 break;
+				  case 5:
+					gameBoard[coord[0]-1][coord[1]-1].buildCity(3, builder);
+					gameBoard[coord[0]-0][coord[1]-1].buildCity(1, builder);	 
+						
+					    break;
+				  default:
+				    System.out.println("RIP");
+				}
+			}
+		
+	}
 	public void drawBackground() {
 		StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
 		StdDraw.filledSquare(0, 0, 1);

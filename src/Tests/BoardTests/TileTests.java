@@ -1,22 +1,13 @@
 package Tests.BoardTests;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-
-import catan.CardType;
-import catan.CityStructure;
-import catan.Player;
-import catan.PlayerType;
-import catan.RoadStructure;
-import catan.SettlementStructure;
-import catan.StdDraw;
-import catan.Tile;
-
-import org.junit.jupiter.api.Test;
+import catan.*;
 
 class TileTests {
 	
