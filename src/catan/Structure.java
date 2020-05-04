@@ -1,6 +1,7 @@
 package catan;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 public abstract class Structure implements Purchasable {
 	StructureType type;
@@ -45,5 +46,17 @@ public abstract class Structure implements Purchasable {
 	
 	public String getName() {
 		return type.name();
+	}
+	
+	public Coordinate readBuildInput() {
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Select a Tile");
+		String tileName = input.nextLine();
+		
+		System.out.println("Select a Tile");
+		int index = input.nextInt();
+		
+		return new Coordinate(tileName, index);
 	}
 }

@@ -39,7 +39,7 @@ public class ResourceCard extends Card {
 		if(player.purchase(this)) {
 			player.addOneCardToHand(this);
 		}
-		System.out.println("Building Resource Card");
+		System.out.println("Traded for Resource Card");
 	}
 
 }

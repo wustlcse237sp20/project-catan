@@ -14,7 +14,17 @@ public class RoadStructure extends Structure {
 	
 	@Override
 	public void build(Player player, GameBoard board) {
-		System.out.println("Building Road");
+		Coordinate buildLocation = this.readBuildInput();
+		String tileName = buildLocation.tileName;
+		int index = buildLocation.index;
+		boolean isValidLocation = board.validRoadIndex(tileName, index, player);
+		
+		if(isValidLocation) {
+			if(player.purchase(this)) {
+				System.out.println("Building Road");
+				board.buildRoad(this, tileName, index, player);
+			}
+		}
 	}
 	
 	public StructureType getType() {

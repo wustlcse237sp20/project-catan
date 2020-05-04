@@ -19,9 +19,16 @@ public class CityStructure extends Structure {
 
 	@Override
 	public void build(Player player, GameBoard board) {
-		if(player.purchase(this)) {
-			
+		Coordinate buildLocation = this.readBuildInput();
+		String tileName = buildLocation.tileName;
+		int index = buildLocation.index;
+		boolean isValidLocation = board.validCityIndex(tileName, index, player);
+		
+		if(isValidLocation) {
+			if(player.purchase(this)) {
+				System.out.println("Building City");
+				board.buildCity(player, tileName, index);
+			}
 		}
-		System.out.print("Building City");
 	}
 }

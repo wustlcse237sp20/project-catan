@@ -23,10 +23,13 @@ public class GameBoard {
 	public  Map <Integer,ArrayList<Tile>> tileValueMap = new HashMap<Integer,ArrayList<Tile>>();
 	private double centerX, centerY, hexagonRadius;
 	public  Map <String,int[]> tileNameMap = new HashMap<String,int[]>();
+	private boolean inSetupPhase;
+	
 	public GameBoard(double gameCenterX,double gameCenterY,double gameHexagonRadius) {
 		centerX = gameCenterX;
 		centerY= gameCenterY;
 		hexagonRadius=gameHexagonRadius;
+		inSetupPhase = true;
 	}
 	
 	public void genBoard() {
@@ -80,6 +83,7 @@ public class GameBoard {
 	 *Checks if player has connecting roads to the index they're trying to build settlement at
 	 */
 	public boolean validSettlementIndex(String tileName, int index, Player builder) {
+		if(inSetupPhase) {return true;}
 		int[] coord = tileNameMap.get(tileName);
 		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
 		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
@@ -165,6 +169,7 @@ public class GameBoard {
 	 *Checks if player has connecting roads to the index they're trying to build road at
 	 */
 	public boolean validRoadIndex(String tileName, int index, Player builder) {
+		if(inSetupPhase) {return true;}
 		int[] coord = tileNameMap.get(tileName);
 		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
 		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
@@ -244,6 +249,10 @@ public class GameBoard {
 		return toReturn;
 	}
 	
+	public boolean validCityIndex(String tileName, int index, Player builder) {
+		// TODO make work
+		return true;
+	}
 	
 	public void buildRoad (RoadStructure r, String tileName, int pos, Player builder) {
 		int[] coord = tileNameMap.get(tileName);
@@ -405,13 +414,20 @@ public class GameBoard {
 	public Player getWinner() {
 		int[] playerScores = new int[4];
 		for(Tile tile: tiles) {
-			for(Structure structure: tile.getSettlements()) {
-				int index = structure.owner.getType().getId();
-				playerScores[index] += structure.vpYield;
-				if(playerScores[index]>=10) { return structure.owner; }
+			for(int i = 0; i < 2; i++) {
+				Structure structure = tile.getSettlements()[i];
+				if(structure != null) {
+					int index = structure.owner.getType().getId();
+					playerScores[index] += structure.vpYield;
+					if(playerScores[index]>=10) { return structure.owner; }
+				}
 			}
 		}
 		return null;
+	}
+	
+	public void endSetupPhase() {
+		inSetupPhase = false;
 	}
 	 
 	public static void main(String[] args) {

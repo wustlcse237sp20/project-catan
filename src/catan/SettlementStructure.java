@@ -17,7 +17,17 @@ public class SettlementStructure extends Structure {
 	
 	@Override
 	public void build(Player player, GameBoard board) {
-		System.out.print("Building Settlement");
+		Coordinate buildLocation = this.readBuildInput();
+		String tileName = buildLocation.tileName;
+		int index = buildLocation.index;
+		boolean isValidLocation = board.validSettlementIndex(tileName, index, player);
+		
+		if(isValidLocation) {
+			if(player.purchase(this)) {
+				System.out.println("Building Settlement");
+				board.buildSettlement(player, tileName, index);
+			}
+		}
 	}
 	
 	public StructureType getType() {

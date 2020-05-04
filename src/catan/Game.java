@@ -34,9 +34,12 @@ public class Game {
 		}
 	}
 	private void run() {
-		while(true) {
+		Player winner = null;
+		while(winner == null) {
 			this.turn();
+			winner = gameBoard.getWinner();
 		}
+		System.out.println(winner.getName() + " Wins!");
 	}
 	private void turn() {
 		this.rollStep();
