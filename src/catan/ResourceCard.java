@@ -36,7 +36,10 @@ public class ResourceCard extends Card {
 	
 	@Override
 	public void build(Player player, GameBoard board) {
-		System.out.print("Building Resource Card");
+		if(player.purchase(this)) {
+			player.addOneCardToHand(this);
+		}
+		System.out.println("Building Resource Card");
 	}
 
 }

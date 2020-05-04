@@ -14,7 +14,7 @@ public class RoadStructure extends Structure {
 	
 	@Override
 	public void build(Player player, GameBoard board) {
-		System.out.print("Building Road");
+		System.out.println("Building Road");
 	}
 	
 	public StructureType getType() {

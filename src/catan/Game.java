@@ -14,12 +14,17 @@ public class Game {
 	Player currentlyPlaying;
 
 	public Game() {
-		gameBoard = new GameBoard(0, 0, 0);
+		double centerX = .5;
+		double centerY= .5;
+		double hexagonRadius=.07;
+		StdDraw.setCanvasSize(700, 700);
+		gameBoard = new GameBoard(centerX, centerY, hexagonRadius);
 		gameBoard.genBoard();
 		players = new ArrayList<Player>();
 		inputScanner = new Scanner(System.in);
 		this.addPlayers();
 		currentlyPlaying = players.remove(0);
+		currentlyPlaying.addCardsToHand(CardType.BRICK, 4);
 	}
 	private void addPlayers() {
 		for(int i = 0; i < 4; i++) {
