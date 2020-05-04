@@ -22,7 +22,6 @@ public class Tile {
 	private  ArrayList<Tile> adjacent;
 	private String name;
 	
-	
 	private Structure[] tileRoads; //represents the EDGES of each tile where roads are
 	private Structure[] tileSettlements; //represents CORNERS of each tile where settlements are
 	
@@ -36,7 +35,6 @@ public class Tile {
 	 * @param tileRoads array of index 6. Each cell represents an edge on the tile, with index 0 referencing middle-left edge, going clockwise
 	 * @param tileSettlements is same as tileRoads but representing corner of tile, with index 0 referencing the top corner, going clockwise
 	 */
-	
 	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth, CardType type, String tileName) {
 		centerX = x;
 		centerY = y;
@@ -69,8 +67,6 @@ public class Tile {
 	/**
 	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
 	 */
-	
-	
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
@@ -98,7 +94,8 @@ public class Tile {
 		double multiple = width*hypotenuse;
 		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
 		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
-		for(int i=0;i< tileRoads.length; i++ ) {
+		for(int k=0;k< tileRoads.length; k++ ) {
+			int i = (k-3)%6;
 			//check if road is there
 			//Set pen color using roads players player Type
 			Structure road = tileRoads[i];
@@ -116,7 +113,8 @@ public class Tile {
 		double multiple = width*hypotenuse;
 		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
 		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
-		for(int i=0;i< tileSettlements.length; i++ ) {
+		for(int k=0;k< tileSettlements.length; k++ ) {
+			int i = (k-1)%6;
 			//Set pen color using roads players player Type
 			Structure structure = tileSettlements[i];
 			if(structure != null) {
@@ -173,50 +171,6 @@ public class Tile {
 	
 	public Structure[] getSettlements() {
 		return tileSettlements;
-	}
-	
-	//@ TODO: add in adjacency rules
-	public boolean canPlaceRoad(int index, Player builder) {
-		if(index < 0 || index > 5) { //index out of bounds
-			return false;
-		}
-		else if(this.getRoads()[index] != null) { //if someone has built there
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
-	//@ TODO: add in adjacency rules
-	public boolean canPlaceSettlement(int index, Player builder) {
-		if(index < 0 || index > 5) { //index out of bounds
-			return false;
-		}
-		if(this.tileSettlements[index] != null) { //if someone has built there
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
-	public boolean canPlaceCity(int index, Player builder) {
-		if(index < 0 || index > 5) { //index out of bounds
-			return false;
-		}
-		else if(this.tileSettlements[index] == null) {
-			return false;
-		}
-		else if(this.tileSettlements[index].getOwner() != builder) { //builder does not have settlement 
-			return false;
-		}
-		else if(this.tileSettlements[index].getType() == StructureType.CITY) { //if is already a city
-			return false;
-		}
-		else {
-			return true;
-		}
 	}
 	
 	/**

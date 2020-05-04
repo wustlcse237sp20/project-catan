@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 class GameBoardTests {
 	private Tile[] testTiles;
+	private Tile[][] board;
 	
 	@BeforeEach
 	void setupTestingObject() {
@@ -23,6 +24,7 @@ class GameBoardTests {
 		double hexagonRadius = 4;
 		GameBoard gameBoard = new GameBoard(x,y,hexagonRadius);
 		testTiles = gameBoard.getTiles();
+		board = gameBoard.getBoard();
 	}
 	
 	@Test
@@ -35,7 +37,6 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
-	
 	@Test
 	void testGenBoard() {
 		double x = 2;
@@ -46,4 +47,9 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
+	@Test
+	void testValidSettlementIndex() {
+		board[4][4].b
+	}
+
 }
