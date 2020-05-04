@@ -54,7 +54,7 @@ public abstract class Structure implements Purchasable {
 		System.out.println("Select a Tile");
 		String tileName = input.nextLine();
 		
-		System.out.println("Select a Tile");
+		System.out.println("Select an Index");
 		int index = input.nextInt();
 		
 		return new Coordinate(tileName, index);

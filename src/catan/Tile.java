@@ -101,9 +101,12 @@ public class Tile {
 		for(int i=0;i< tileRoads.length; i++ ) {
 			//check if road is there
 			//Set pen color using roads players player Type
-			StdDraw.setPenColor(StdDraw.CYAN);
-			StdDraw.setPenRadius(.02);
-			StdDraw.line(xCoord[i], yCoord[i],xCoord[(i+1)%6], yCoord[(i+1)%6]);
+			Structure road = tileRoads[i];
+			if(road != null) {
+				StdDraw.setPenColor(road.owner.getType().getColor());
+				StdDraw.setPenRadius(.02);
+				StdDraw.line(xCoord[i], yCoord[i],xCoord[(i+1)%6], yCoord[(i+1)%6]);
+			}
 		}
 		//Set pen color using roads players player Type
 	}
@@ -115,9 +118,13 @@ public class Tile {
 		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
 		for(int i=0;i< tileSettlements.length; i++ ) {
 			//Set pen color using roads players player Type
-			StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
-			StdDraw.filledCircle(xCoord[i], yCoord[i], .025);
-			StdDraw.setPenColor(StdDraw.BLACK);
+			Structure structure = tileSettlements[i];
+			if(structure != null) {
+				StdDraw.setPenColor(structure.owner.getType().getColor());
+				if(structure.getType() == StructureType.SETTLEMENT) {StdDraw.filledCircle(xCoord[i], yCoord[i], .025);}
+				if(structure.getType() == StructureType.CITY) {StdDraw.filledSquare(xCoord[i], yCoord[i], .025);}
+				StdDraw.setPenColor(StdDraw.BLACK);
+			}
 			//check if city or settlement then set string
 		}	
 	}

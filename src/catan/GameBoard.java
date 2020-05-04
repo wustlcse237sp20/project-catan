@@ -80,6 +80,19 @@ public class GameBoard {
 		}
 	}
 	
+	public void updateBoard () {
+		StdDraw.clear();
+		drawBackground();
+		for (int j = 0; j<gameBoard.length; j++){
+	     for (int i = 0; i<gameBoard[0].length; i++){
+	    	 if(gameBoard[j][i]!=null) {
+	    		 gameBoard[j][i].drawTile();
+	    		 
+	    	 } 
+	     }
+	     }
+	}
+	
 	/**
 	 *Checks if player has connecting roads to the index they're trying to build settlement at
 	 */
@@ -298,6 +311,7 @@ public class GameBoard {
 			    System.out.println("RIP");
 			}
 		}
+		this.updateBoard();
 	}
 	
 	public void buildSettlement (Player builder, String tileName, int pos) {
@@ -338,6 +352,7 @@ public class GameBoard {
 			    System.out.println("RIP");
 			}
 		}
+		this.updateBoard();
 	}
 	public void buildCity (Player builder, String tileName, int pos) {
 		int[] coord = tileNameMap.get(tileName);
@@ -378,7 +393,7 @@ public class GameBoard {
 			    System.out.println("RIP");
 			}
 		}
-		
+		this.updateBoard();
 	}
 	public void drawBackground() {
 		StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
