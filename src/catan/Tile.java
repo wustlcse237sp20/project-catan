@@ -69,6 +69,8 @@ public class Tile {
 	/**
 	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
 	 */
+	
+	
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
@@ -90,6 +92,39 @@ public class Tile {
 				StdDraw.text(centerX, centerY, value+"-"+name);
 			}
 	}
+	public void drawRoads() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileRoads.length; i++ ) {
+			//check if road is there
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.CYAN);
+			StdDraw.setPenRadius(.02);
+			StdDraw.line(xCoord[i], yCoord[i],xCoord[(i+1)%6], yCoord[(i+1)%6]);
+			
+		}
+		//Set pen color using roads players player Type
+		
+		
+	}
+	public void drawStructures() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileSettlements.length; i++ ) {
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
+			StdDraw.filledCircle(xCoord[i], yCoord[i], .025);
+			StdDraw.setPenColor(StdDraw.BLACK);
+			//check if city or settlement then set string
+		}
+		
+		
+	}
+	
 	
 	public void drawRoads() {
 		double hypotenuse = Math.sqrt(2);
