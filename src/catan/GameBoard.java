@@ -289,27 +289,27 @@ public class GameBoard {
 		
 		if(result) {
 			gameBoard[coord[0]][coord[1]].buildRoad(pos, builder); //build on current tile
-			switch(pos) {
-			  case 0:
-				  gameBoard[coord[0]-1][coord[1]+0].buildRoad(3,builder);
-			    break;
-			  case 1:
-				  gameBoard[coord[0]+0][coord[1]-1].buildRoad(4,builder);
-				    break;
-			  case 2:
-				  gameBoard[coord[0]+1][coord[1]-1].buildRoad(5,builder);
-				    break;
-			  case 3:
-				  gameBoard[coord[0]+1][coord[1]+0].buildRoad(0,builder);
-				    break;
-			  case 4:
-				  gameBoard[coord[0]+1][coord[1]+1].buildRoad(1,builder);
-				    break;
-			  case 5:
-				gameBoard[coord[0]+0][coord[1]+1].buildRoad(2,builder);
-			    
-			    break;
-			}
+//			switch(pos) {
+//			  case 0:
+//				  gameBoard[coord[0]-1][coord[1]+0].buildRoad(3,builder);
+//			    break;
+//			  case 1:
+//				  gameBoard[coord[0]+0][coord[1]-1].buildRoad(4,builder);
+//				    break;
+//			  case 2:
+//				  gameBoard[coord[0]+1][coord[1]-1].buildRoad(5,builder);
+//				    break;
+//			  case 3:
+//				  gameBoard[coord[0]+1][coord[1]+0].buildRoad(0,builder);
+//				    break;
+//			  case 4:
+//				  gameBoard[coord[0]+1][coord[1]+1].buildRoad(1,builder);
+//				    break;
+//			  case 5:
+//				gameBoard[coord[0]+0][coord[1]+1].buildRoad(2,builder);
+//			    
+//			    break;
+//			}
 		}
 		this.updateBoard();
 	}
@@ -321,32 +321,32 @@ public class GameBoard {
 		
 		if(result) {
 			gameBoard[coord[0]][coord[1]].buildSettlement(pos, builder); //build on current tile
-			switch(pos) {
-			  case 0:
-				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(2, builder);
-				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(4, builder);
-			    break;
-			  case 1:
-				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(3, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(5, builder);
-				    break;
-			  case 2:
-				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(4, builder);
-				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(0, builder);
-				    break;
-			  case 3:
-				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(5, builder);	 
-				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(1, builder);
-				    break;
-			  case 4:
-				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(0, builder);
-				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(2, builder);	 	  
-				 break;
-			  case 5:
-				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(1, builder);	 
-				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(3, builder);
-				    break;
-			}
+//			switch(pos) {
+//			  case 0:
+//				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(2, builder);
+//				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(4, builder);
+//			    break;
+//			  case 1:
+//				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(3, builder);
+//				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(5, builder);
+//				    break;
+//			  case 2:
+//				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(4, builder);
+//				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(0, builder);
+//				    break;
+//			  case 3:
+//				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(5, builder);	 
+//				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(1, builder);
+//				    break;
+//			  case 4:
+//				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(0, builder);
+//				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(2, builder);	 	  
+//				 break;
+//			  case 5:
+//				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(1, builder);	 
+//				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(3, builder);
+//				    break;
+//			}
 		}
 		this.updateBoard();
 	}
@@ -358,32 +358,32 @@ public class GameBoard {
 		
 		if(result) {
 			gameBoard[coord[0]][coord[1]].buildCity(pos, builder); //build on current tile
-			switch(pos) {
-			  case 0:
-				gameBoard[coord[0]+0][coord[1]-1].buildCity(2, builder);
-				gameBoard[coord[0]+1][coord[1]-1].buildCity(4, builder);
-			    break;
-			  case 1:
-				gameBoard[coord[0]+1][coord[1]-1].buildCity(3, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildCity(5, builder);
-				    break;
-			  case 2:
-				gameBoard[coord[0]+1][coord[1]+0].buildCity(4, builder);
-				gameBoard[coord[0]+1][coord[1]+1].buildCity(0, builder);
-				    break;
-			  case 3:
-				gameBoard[coord[0]+1][coord[1]+1].buildCity(5, builder);	 
-				gameBoard[coord[0]+0][coord[1]+1].buildCity(1, builder);
-				    break;
-			  case 4:
-				gameBoard[coord[0]+0][coord[1]+1].buildCity(0, builder);
-				gameBoard[coord[0]-1][coord[1]+0].buildCity(2, builder);	 	  
-				 break;
-			  case 5:
-				gameBoard[coord[0]-1][coord[1]+0].buildCity(1, builder);	 
-				gameBoard[coord[0]+0][coord[1]-1].buildCity(3, builder);
-				    break;
-			}
+//			switch(pos) {
+//			  case 0:
+//				gameBoard[coord[0]+0][coord[1]-1].buildCity(2, builder);
+//				gameBoard[coord[0]+1][coord[1]-1].buildCity(4, builder);
+//			    break;
+//			  case 1:
+//				gameBoard[coord[0]+1][coord[1]-1].buildCity(3, builder);
+//				gameBoard[coord[0]+1][coord[1]+0].buildCity(5, builder);
+//				    break;
+//			  case 2:
+//				gameBoard[coord[0]+1][coord[1]+0].buildCity(4, builder);
+//				gameBoard[coord[0]+1][coord[1]+1].buildCity(0, builder);
+//				    break;
+//			  case 3:
+//				gameBoard[coord[0]+1][coord[1]+1].buildCity(5, builder);	 
+//				gameBoard[coord[0]+0][coord[1]+1].buildCity(1, builder);
+//				    break;
+//			  case 4:
+//				gameBoard[coord[0]+0][coord[1]+1].buildCity(0, builder);
+//				gameBoard[coord[0]-1][coord[1]+0].buildCity(2, builder);	 	  
+//				 break;
+//			  case 5:
+//				gameBoard[coord[0]-1][coord[1]+0].buildCity(1, builder);	 
+//				gameBoard[coord[0]+0][coord[1]-1].buildCity(3, builder);
+//				    break;
+//			}
 		}
 		this.updateBoard();
 	}
