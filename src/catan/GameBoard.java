@@ -324,6 +324,18 @@ public class GameBoard {
 	public Tile getTile(int x, int y) {
 		return gameBoard[y][x];
 	}
+	
+	public Player getWinner() {
+		int[] playerScores = new int[4];
+		for(Tile tile: tiles) {
+			for(Structure structure: tile.getSettlements()) {
+				int index = structure.owner.getType().getId();
+				playerScores[index] += structure.vpYield;
+				if(playerScores[index]>=10) { return structure.owner; }
+			}
+		}
+		return null;
+	}
 	 
 	public static void main(String[] args) {
 		double centerX = .5;
