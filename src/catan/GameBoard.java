@@ -13,9 +13,6 @@ import java.util.Map;
 
 public class GameBoard {
 	
-	
-	
-	
 	private int[] originalTileValues = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
 	private Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
 	private Tile[] tiles = new Tile[tileColors.length];
@@ -30,6 +27,10 @@ public class GameBoard {
 		centerY= gameCenterY;
 		hexagonRadius=gameHexagonRadius;
 		inSetupPhase = true;
+	}
+	
+	public Tile[][] getBoard(){
+		return gameBoard;
 	}
 	
 	public void genBoard() {
@@ -89,6 +90,9 @@ public class GameBoard {
 		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
 		int xOffset = 0, yOffset = 0, roadIndex = 0;
 		boolean toReturn = false;
+		if(currentTile.getSettlements()[index] != null) { //check if is empty
+			return toReturn;
+		}
 		switch(index) {
 			case 0:	//check topLeft road index 3
 				xOffset = 0;
@@ -179,6 +183,9 @@ public class GameBoard {
 		int check1 = 0; //"left" of index on adjacent tile
 		int check2 = 0; //"right" of index on adjacent tile
 		boolean toReturn = false;
+		if(currentTile.getRoads()[index] != null) { //check if is empty
+			return toReturn;
+		}
 		switch(index) {
 			case 0:	//check topLeft road index 3
 				xOffset = 0;
@@ -249,9 +256,17 @@ public class GameBoard {
 		return toReturn;
 	}
 	
+	/**
+	 * Check if city can be built: does player have settlement at index already?
+	 * */
 	public boolean validCityIndex(String tileName, int index, Player builder) {
-		// TODO make work
-		return true;
+		int[] coord = tileNameMap.get(tileName);
+		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
+		boolean toReturn = false;
+		if(currentTile.getSettlements()[index].getOwner() == builder) {
+			toReturn = true;
+		}	
+		return toReturn;
 	}
 	
 	public void buildRoad (RoadStructure r, String tileName, int pos, Player builder) {
