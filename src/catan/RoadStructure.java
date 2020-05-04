@@ -15,4 +15,8 @@ public class RoadStructure extends Structure {
 	public RoadStructure(Player o) {
 		super(o,0);
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 }

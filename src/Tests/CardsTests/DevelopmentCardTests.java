@@ -2,18 +2,13 @@ package Tests.CardsTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Color;
+import catan.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-
-import catan.Card;
-import catan.DevelopmentCard;
-import catan.CardType;
-
-
-import org.junit.jupiter.api.Test;
 
 class DevelopmentCardTests {
 	

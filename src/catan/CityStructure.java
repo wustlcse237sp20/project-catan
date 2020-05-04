@@ -16,5 +16,9 @@ public class CityStructure extends Structure {
 	public CityStructure(Player o) {
 		super(o, 2);
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 
 }

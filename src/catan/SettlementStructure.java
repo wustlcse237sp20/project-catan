@@ -18,5 +18,9 @@ public class SettlementStructure extends Structure {
 	public SettlementStructure(Player o) {
 		super(o, 1);
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 
 }
