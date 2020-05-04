@@ -13,6 +13,6 @@ public class RoadStructure extends Structure {
 	static int vpYield = 0;
 
 	public RoadStructure(Player o) {
-		super(o);
+		super(o,0);
 	}
 }

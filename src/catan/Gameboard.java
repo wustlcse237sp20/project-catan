@@ -1,7 +1,6 @@
 package catan;
 
 import java.awt.Color;
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -14,6 +13,8 @@ import java.util.Random;
 //import catan.Structures.*;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Gameboard {
 
@@ -39,18 +40,16 @@ public class Gameboard {
 		int robberOffset =0;
 		for (int i=0; i<xCoords.length;i++) {
 			if(tileColors[i]!=StdDraw.BLACK) {
-					tiles[i]= new Tile(xCoords[i],yCoords[i],newTileValues[i-robberOffset],tileColors[i],hexagonRadius);	
+					tiles[i]= new Tile(xCoords[i],yCoords[i],newTileValues[i-robberOffset],tileColors[i],hexagonRadius,CardType.ORE);	
 			} 
 			else {
-					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius);
+					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius, CardType.WHEAT);
 					robberOffset=1;
 			}
 			//tiles[i].drawTile();
 		}
 		Arrays.sort(tiles, (a,b) -> a.comparePoint(b.getPoint()));
 		System.out.println(tiles.length);
-		
-		//HEXAGONAL GRID OF TILES
 		Tile[][] gameboardInit = {
 				{null,null,null,null,null,null,null},
 				{null,null,tiles[0],tiles[1],tiles[2],null,null},
@@ -64,10 +63,61 @@ public class Gameboard {
 		gameBoard =gameboardInit;
 		
 		for (int j = 0; j<gameBoard.length; j++){
+			
 		     for (int i = 0; i<gameBoard[0].length; i++){
 		    	 if(gameBoard[j][i]!=null) {
 		    		 gameBoard[j][i].drawTile();
-		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );	
+		    		 
+		    		ArrayList<Tile> tileArray = tileValueMap.get(gameBoard[j][i].getValue());
+		    		if (tileArray == null) {
+		    			tileArray = new ArrayList<Tile>();
+		    		}
+		    		tileArray.add(gameBoard[j][i]);
+		    		tileValueMap.put(gameBoard[j][i].getValue(), tileArray);
+		    	 }
+		    	 
+		     }
+		     }
+		
+		
+		for (int j = 0; j<gameBoard.length; j++){
+			
+		     for (int i = 0; i<gameBoard[0].length; i++){
+		    	 if(gameBoard[j][i]!=null) {
+		    		 gameBoard[j][i].drawTile();
+		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );
+		    			
+		    	 }
+		    	 
+		     }
+		     }	
+		int [][] offsets = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1}};
+		for (int j = 0; j<gameBoard.length; j++){
+			
+		     for (int i = 0; i<gameBoard[0].length; i++){
+		    	 if(gameBoard[j][i]!=null) {
+		    		 ArrayList<Tile> adjacent = new ArrayList<Tile>();
+		    		 for(int k=0; k< offsets.length;k++) {
+		    			 int x = i + offsets[k][1];
+		    			int y = j + offsets[k][0];
+		    			 if(!(x<0 || y<0 || x>gameBoard.length || y>gameBoard.length || gameBoard[x][y]==null)) {
+		    				 adjacent.add( gameBoard[y][x]);
+		    			 }
+		    		 }
+		    		 
+		    			 System.out.println();
+		    			 System.out.println("Current: " +  gameBoard[j][i].getValue());
+		    			 System.out.println("adjacent ");
+		    		    		 for (int it =0 ; it<adjacent.size(); it++) {
+		    		    			 if(adjacent.get(it)!=null) {
+		    		    				 System.out.print(" " + adjacent.get(it).getValue());
+		    		    			 }
+		    		    			 
+		    		    		 } 
+		    		 
+		    		 
+		    	Collections.sort(adjacent,(a,b) -> a.comparePoint(b.getPoint()));
+		    	gameBoard[i][j].setAdjacent(adjacent);
 		    	 }
 		     }
 		}
@@ -106,6 +156,14 @@ public class Gameboard {
 		return array;
 	}
 	
+	public void payout(int roll) {
+		ArrayList<Tile> tiles = tileValueMap.get(roll);
+		tiles.forEach((t) -> t.payout());
+	}
+	
+	public Tile getTile(int x, int y) {
+		return gameBoard[y][x];
+	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub 
@@ -114,6 +172,7 @@ public class Gameboard {
 		double centerY= .5;
 		double hexagonRadius=.07;
 		StdDraw.setCanvasSize(700, 700);
-		genBoard(centerX, centerY, hexagonRadius);
+		GameBoard gameBoard = new GameBoard();
+		gameBoard.genBoard(centerX, centerY, hexagonRadius);
 	}
 }
