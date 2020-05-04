@@ -122,6 +122,10 @@ public class GameBoard {
 	
 	public void payout(int roll) {
 		ArrayList<Tile> tiles = tileValueMap.get(roll);
+		System.out.println(tiles);
+		if(tiles == null) {
+			return;
+		}
 		tiles.forEach((t) -> t.payout());
 	}
 	

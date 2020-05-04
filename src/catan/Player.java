@@ -3,6 +3,7 @@ package catan;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ArrayList;
 
 public class Player {
@@ -10,6 +11,8 @@ public class Player {
 	ArrayList<DevelopmentCard> devCards;
 	private PlayerType type;
 	int victoryPoints = 0;
+	
+	ArrayList<Purchasable> purchasableOptions;
 	
 	public Player(PlayerType t) {
 		handCardAmounts = new HashMap<CardType, Integer>();
@@ -21,6 +24,16 @@ public class Player {
 		handCardAmounts.put(CardType.DEVELOPMENT, 0);
 		
 		setType(t);
+		
+		purchasableOptions = new ArrayList<Purchasable>();
+		purchasableOptions.add(new ResourceCard(CardType.BRICK));
+		purchasableOptions.add(new ResourceCard(CardType.LUMBER));
+		purchasableOptions.add(new ResourceCard(CardType.WHEAT));
+		purchasableOptions.add(new ResourceCard(CardType.ORE));
+		purchasableOptions.add(new ResourceCard(CardType.SHEEP));
+		purchasableOptions.add(new RoadStructure(this));
+		purchasableOptions.add(new SettlementStructure(this));
+		purchasableOptions.add(new CityStructure(this));
 	}
 	
 	// for adding resource card(s) when you have the card type but no Card instance
@@ -44,7 +57,7 @@ public class Player {
 		handCardAmounts.replace(cardType, newAmount);
 	}
 	
-	// for adding an instance to the players hand
+	// for adding an instance to the players hand (important for Dev Cards)
 	public void addOneCardToHand(Card newCard) {
 		this.addCardsToHand(newCard.getCardType(), 1);
 		if(newCard instanceof DevelopmentCard) {
@@ -96,7 +109,7 @@ public class Player {
 	}
 	
 	// generic purchase method to handle transactions
-	private boolean purchase(Purchasable p) {
+	public boolean purchase(Purchasable p) {
 		if(p.canPlayerAfford(handCardAmounts)) {
 			Map<CardType, Integer> cost = p.getCost();
 			for(Entry<CardType, Integer> costValue: cost.entrySet()){
@@ -123,5 +136,16 @@ public class Player {
 	public void printHand() {
 		System.out.println("Your Hand:");
 		handCardAmounts.forEach((cardType,amount) -> System.out.println(cardType.name() + ": " + amount));
+	}
+	
+	public ArrayList<Purchasable> getPurchasable() {
+		ArrayList<Purchasable> allAffordable = new ArrayList<Purchasable>();
+		for(int i = 0; i<purchasableOptions.size(); i++) {
+			Purchasable checkingPurchasableItem = purchasableOptions.get(i);
+			if(checkingPurchasableItem.canPlayerAfford(this.handCardAmounts)) {
+				allAffordable.add(checkingPurchasableItem);
+			}
+		}
+		return allAffordable;
 	}
 }

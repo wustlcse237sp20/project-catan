@@ -32,5 +32,10 @@ public class DevelopmentCard extends Card {
 	public Map<CardType, Integer> getCost() {
 		return this.cost;
 	}
+	
+	@Override
+	public void build(Player player, GameBoard board) {
+		System.out.print("Building Dev Card");
+	}
 
 }

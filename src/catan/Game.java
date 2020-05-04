@@ -15,6 +15,7 @@ public class Game {
 
 	public Game() {
 		gameBoard = new GameBoard(0, 0, 0);
+		gameBoard.genBoard();
 		players = new ArrayList<Player>();
 		inputScanner = new Scanner(System.in);
 		this.addPlayers();
@@ -33,15 +34,59 @@ public class Game {
 		}
 	}
 	private void turn() {
+		this.rollStep();
+		this.purchaseStep();
+		this.endStep();
+	}
+	private void rollStep() {
 		String playerName = currentlyPlaying.getName();
 		System.out.println("It is " + playerName + "'s turn");
+		
+		int die1 = dieRoll();
+		int die2 = dieRoll();
+		int dieTotal = die1 + die2;
+		
+		System.out.println("Dice rolled: " + die1 + " and " + die2);
+		gameBoard.payout(dieTotal);
+		
+		currentlyPlaying.printHand();
 	}
 	private void purchaseStep() {
 		boolean purchaseStep = true;
 		while(purchaseStep) {
-			
-			
+			ArrayList<Purchasable> allPurchasable = currentlyPlaying.getPurchasable();
+			printPurchasable(allPurchasable);
+			purchaseStep = readPurchasableInput(allPurchasable);
 		}
 	}
-
+	private void endStep() {
+		players.add(currentlyPlaying);
+		currentlyPlaying = players.remove(0);
+	}
+	
+	private int dieRoll() {
+		return (int) (Math.random()*7.0);
+	}
+	
+	private void printPurchasable(ArrayList<Purchasable> allPurchasable) {
+		System.out.println("What wouold you like to purchase?");
+		for (int i = 0; i < allPurchasable.size(); i++) {
+			System.out.println(i + ". " + allPurchasable.get(i).getName());
+		}
+		System.out.println(allPurchasable.size() + ". Nothing (end turn)");
+	}
+	private boolean readPurchasableInput(ArrayList<Purchasable> allPurchasable) {
+		int selection = inputScanner.nextInt();
+		if (selection < allPurchasable.size() && selection > -1) {
+			allPurchasable.get(selection).build(currentlyPlaying, gameBoard);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.run();
+	}
 }
