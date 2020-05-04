@@ -1,14 +1,14 @@
 package Tests.CardsTests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import catan.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import catan.*;
 
 class DevelopmentCardTests {
 	
