@@ -36,24 +36,31 @@ public class Player {
 		purchasableOptions.add(new CityStructure(this));
 	}
 	
-	// for checking a player hand
+	/**
+	 * @param type of card to check amount of
+	 * @return the amount of cards of selected type in the players hand
+	 */
 	public int getCardsInHand(CardType type) {
 		int numCards = handCardAmounts.get(type);
 		return numCards;
 	}
 	
-	// for adding resource card(s) when you have the card type but no Card instance
+	/**
+	 * useful for adding a bunch of cards to the player's hand, ie: when a tile pays out
+	 * @param cardType the type of card to add
+	 * @param amount the amount of card to add
+	 */
 	public void addCardsToHand(CardType cardType, int amount) {
-		// System.out.println("adding " + amount + " cards");
 		int newAmount = handCardAmounts.get(cardType) + amount;
-		// System.out.println("new amount " + newAmount + " cards");
 		handCardAmounts.replace(cardType, newAmount);
 		
 	}
 	
-	//TODO: function for determining if can remove x amount of cards of type x from Player's hand
-	
 	// for removing cards given a type
+	/**
+	 * @param cardType to remove
+	 * @param amount to remove
+	 */
 	public void removeCardsFromHand(CardType cardType, int amount) {
 		int newAmount = handCardAmounts.get(cardType) - amount;
 		if(newAmount < 0) {
@@ -63,7 +70,10 @@ public class Player {
 		handCardAmounts.replace(cardType, newAmount);
 	}
 	
-	// for adding an instance to the players hand (important for Dev Cards)
+	/**
+	 * useful when adding an instanced card to players hand, such as when buying from purchasable
+	 * @param newCard instance of card to add
+	 */
 	public void addOneCardToHand(Card newCard) {
 		this.addCardsToHand(newCard.getCardType(), 1);
 		if(newCard instanceof DevelopmentCard) {
@@ -73,6 +83,10 @@ public class Player {
 
 	
 	// Structure Factory
+	/**
+	 * @param model to build the structure from, an enum value
+	 * @return the built structure
+	 */
 	public Structure buildStructure(StructureType model) {
 		Structure newStructure = null;
 		switch(model) {
@@ -94,7 +108,9 @@ public class Player {
 		return null;
 	}
 	
-	// Card Factory
+	/**
+	 * @param model build a new card of type model and add it directly to hand
+	 */
 	public void buildCard(CardType model) {
 		Card newCard = null;
 		switch(model) {
@@ -109,7 +125,11 @@ public class Player {
 		}
 	}
 	
-	// generic purchase method to handle transactions
+	/**
+	 * generic method to purchase cards and structures, holy polymorphism!
+	 * @param p the object that is being purchased
+	 * @return if the purchase was successful
+	 */
 	public boolean purchase(Purchasable p) {
 		if(p.canPlayerAfford(handCardAmounts)) {
 			Map<CardType, Integer> cost = p.getCost();
@@ -122,23 +142,38 @@ public class Player {
 		return false;
 	}
 
+	/**
+	 * @return the player type
+	 */
 	public PlayerType getType() {
 		return type;
 	}
 
-	public void setType(PlayerType type) {
+	/**
+	 * @param type the player type to set
+	 */
+	private void setType(PlayerType type) {
 		this.type = type;
 	}
 	
+	/**
+	 * @return players color as a string, or its name
+	 */
 	public String getName() {
 		return this.type.name();
 	}
 	
+	/**
+	 * prints type of cards and quantities from players hand
+	 */
 	public void printHand() {
 		System.out.println("Your Hand:");
 		handCardAmounts.forEach((cardType,amount) -> System.out.println(cardType.name() + ": " + amount));
 	}
 	
+	/**
+	 * @return a list of all of the purchasable items this player can currently afford
+	 */
 	public ArrayList<Purchasable> getPurchasable() {
 		ArrayList<Purchasable> allAffordable = new ArrayList<Purchasable>();
 		for(int i = 0; i<purchasableOptions.size(); i++) {

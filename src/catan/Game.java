@@ -28,13 +28,19 @@ public class Game {
 		this.setupDraft();
 		currentlyPlaying = snakeDraft.remove(0);
 	}
+	/**
+	 * instances the players and adds them to player list
+	 */
 	private void addPlayers() {
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < PlayerType.values().length; i++) {
 			PlayerType playerType = PlayerType.values()[i];
 			Player newPlayer = new Player(playerType);
 			players.add(newPlayer);
 		}
 	}
+	/**
+	 * builds snack draft from the inside out ie... 3,2,1,1,2,3
+	 */
 	private void setupDraft() {
 		for(int i = 0; i < players.size(); i++) {
 			// adds each player to start and end of snake draft
@@ -43,6 +49,9 @@ public class Game {
 			snakeDraft.add(0, player);
 		}
 	}
+	/**
+	 * main runner method, runs setup phase and then main game turns until the game ends
+	 */
 	private void run() {
 		// Run snake draft setup
 		while(snakeDraft.size() > 0) {
@@ -57,16 +66,25 @@ public class Game {
 			this.turn();
 		}
 	}
+	/**
+	 * Runs a turn from the normal phase of gameplay
+	 */
 	private void turn() {
 		this.rollStep();
 		this.purchaseStep();
 		this.endStep();
 	}
+	/**
+	 * Runs a turn from the setup phase of gameplay
+	 */
 	private void setupTurn() {
 		this.setupGiftStep();
 		this.purchaseStep();
 		this.setupEndStep();
 	}
+	/**
+	 * rolls the dice and pays out from the gameboard depending on the value
+	 */
 	private void rollStep() {
 		String playerName = currentlyPlaying.getName();
 		System.out.println("It is " + playerName + "'s turn");
@@ -80,6 +98,9 @@ public class Game {
 		
 		currentlyPlaying.printHand();
 	}
+	/**
+	 * allows the current player to purchase items they can afford
+	 */
 	private void purchaseStep() {
 		boolean purchaseStep = true;
 		while(purchaseStep) {
@@ -88,11 +109,17 @@ public class Game {
 			purchaseStep = readPurchasableInput(allPurchasable);
 		}
 	}
+	/**
+	 * moves to next player
+	 */
 	private void endStep() {
 		players.add(currentlyPlaying);
 		currentlyPlaying = players.remove(0);
 	}
 	
+	/**
+	 * gifts player with materials for their setup settlement/road
+	 */
 	private void setupGiftStep() {
 		String playerName = currentlyPlaying.getName();
 		System.out.println("It is " + playerName + "'s turn to place.");
@@ -102,14 +129,23 @@ public class Game {
 		currentlyPlaying.addCardsToHand(CardType.SHEEP, 1);
 		currentlyPlaying.addCardsToHand(CardType.WHEAT, 1);
 	}
+	/**
+	 * moves to next player, from snake draft
+	 */
 	private void setupEndStep() {
 		currentlyPlaying = snakeDraft.remove(0);
 	}
 	
+	/**
+	 * @return random die roll between 1-6, inclusive 
+	 */
 	private int dieRoll() {
 		return (int) (Math.random()*7.0);
 	}
 	
+	/**
+	 * @param allPurchasable List of all items the player should be able to buy
+	 */
 	private void printPurchasable(ArrayList<Purchasable> allPurchasable) {
 		System.out.println("What wouold you like to purchase?");
 		for (int i = 0; i < allPurchasable.size(); i++) {
@@ -117,6 +153,10 @@ public class Game {
 		}
 		System.out.println(allPurchasable.size() + ". Nothing (end turn)");
 	}
+	/**
+	 * @param allPurchasable List of all items the player should be able to buy
+	 * @return returns if the purchasable input lead to a purchase 
+	 */
 	private boolean readPurchasableInput(ArrayList<Purchasable> allPurchasable) {
 		int selection = inputScanner.nextInt();
 		if (selection < allPurchasable.size() && selection > -1) {
