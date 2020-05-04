@@ -111,7 +111,7 @@ public class GameBoard {
 				break;
 			case 3: //check bottomRight road index 0
 				xOffset = 1;
-				yOffset = -1;
+				yOffset = 1;
 				roadIndex = 0;
 				break; 
 			case 4: //check bottomLeft road index 1
@@ -176,7 +176,7 @@ public class GameBoard {
 		if(inSetupPhase) {return true;}
 		int[] coord = tileNameMap.get(tileName);
 		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
-		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
+		Tile tileToCheck = null; //0 -> mLeft, 1-> tRight, 2-> tRight, 3-> mRight, 4-> bRight, 5->bLeft
 		int xOffset = 0, yOffset = 0;
 		int current1 = 0; //"left" of index on current tile
 		int current2 = 0; //"right" of index on current tile
@@ -187,49 +187,49 @@ public class GameBoard {
 			return toReturn;
 		}
 		switch(index) {
-			case 0:	//check topLeft road index 3
-				xOffset = 0;
-				yOffset = -1;
+			case 0:	//check leftMiddle road index 3
+				xOffset = -1;
+				yOffset = 0;
 				current1 = 5;
 				current2 = 1;
 				check1 = 4;
 				check2 = 2;
 				break;
-			case 1: //check topRight road index 4
-				xOffset = 1;
+			case 1: //check topLeft road index 4
+				xOffset = 0;
 				yOffset = -1;
 				current1 = 0;
 				current2 = 2;
 				check1 = 5;
 				check2 = 3;
 				break;
-			case 2: //check middleRight road index 5
+			case 2: //check topRight road index 5
 				xOffset = 1;
-				yOffset = 0;
+				yOffset = -1;
 				current1 = 1;
 				current2 = 3;
 				check1 = 0;
 				check2 = 4;
 				break;
-			case 3: //check bottomRight road index 0
+			case 3: //check middleRight road index 0
 				xOffset = 1;
-				yOffset = -1;
+				yOffset = 0;
 				current1 = 2;
 				current2 = 4;
 				check1 = 1;
 				check2 = 5;
 				break; 
-			case 4: //check bottomLeft road index 1
-				xOffset = 0;
+			case 4: //check bottomRight road index 1
+				xOffset = 1;
 				yOffset = 1;
 				current1 = 3;
 				current2 = 5;
 				check1 = 2;
 				check2 = 0;
 				break;
-			case 5: //check middleLeft road index 2
-				xOffset = -1;
-				yOffset = 0;
+			case 5: //check bottomLeft road index 2
+				xOffset = 0;
+				yOffset = 1;
 				current1 = 4;
 				current2 = 0;
 				check1 = 3;
@@ -271,111 +271,103 @@ public class GameBoard {
 	
 	public void buildRoad (RoadStructure r, String tileName, int pos, Player builder) {
 		int[] coord = tileNameMap.get(tileName);
-		boolean result = gameBoard[coord[0]][coord[1]].canPlaceRoad(pos,builder);
+//		boolean result = gameBoard[coord[0]][coord[1]].canPlaceRoad(pos,builder);
+		boolean result = this.validRoadIndex(tileName, pos, builder);
 		
 		if(result) {
+			gameBoard[coord[0]][coord[1]].buildRoad(pos, builder); //build on current tile
 			switch(pos) {
-			  case 5:
-				gameBoard[coord[0]+1][coord[1]-1].buildRoad(2,builder);
-			    
-			    break;
 			  case 0:
-				  gameBoard[coord[0]+1][coord[1]-0].buildRoad(3,builder);
+				  gameBoard[coord[0]-1][coord[1]+0].buildRoad(3,builder);
 			    break;
 			  case 1:
-				  gameBoard[coord[0]+1][coord[1]+1].buildRoad(4,builder);
+				  gameBoard[coord[0]+0][coord[1]-1].buildRoad(4,builder);
 				    break;
 			  case 2:
-				  gameBoard[coord[0]][coord[1]-1].buildRoad(5,builder);
+				  gameBoard[coord[0]+1][coord[1]-1].buildRoad(5,builder);
 				    break;
 			  case 3:
-				  gameBoard[coord[0]-1][coord[1]].buildRoad(0,builder);
+				  gameBoard[coord[0]+1][coord[1]+0].buildRoad(0,builder);
 				    break;
 			  case 4:
-				  gameBoard[coord[0]][coord[1]-1].buildRoad(1,builder);
+				  gameBoard[coord[0]+1][coord[1]+1].buildRoad(1,builder);
 				    break;
-			  default:
-			    System.out.println("RIP");
+			  case 5:
+				gameBoard[coord[0]+0][coord[1]+1].buildRoad(2,builder);
+			    
+			    break;
 			}
 		}
 	}
 	
 	public void buildSettlement (Player builder, String tileName, int pos) {
 		int[] coord = tileNameMap.get(tileName);
-		boolean result = gameBoard[coord[0]][coord[1]].canPlaceSettlement(pos,builder);
+//		boolean result = gameBoard[coord[0]][coord[1]].canPlaceSettlement(pos,builder);
+		boolean result = this.validSettlementIndex(tileName, pos, builder);
 		
 		if(result) {
+			gameBoard[coord[0]][coord[1]].buildSettlement(pos, builder); //build on current tile
 			switch(pos) {
 			  case 0:
-				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(2, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(4, builder);
+				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(2, builder);
+				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(4, builder);
 			    break;
 			  case 1:
-				  gameBoard[coord[0]+1][coord[1]+1].buildSettlement(5, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(3, builder);
+				gameBoard[coord[0]+1][coord[1]-1].buildSettlement(3, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(5, builder);
 				    break;
 			  case 2:
-				  
-				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(4, builder);
-				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(0, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildSettlement(4, builder);
+				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(0, builder);
 				    break;
 			  case 3:
-				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(1, builder);
-				gameBoard[coord[0]-0][coord[1]+1].buildSettlement(5, builder);	  
-				  
+				gameBoard[coord[0]+1][coord[1]+1].buildSettlement(5, builder);	 
+				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(1, builder);
 				    break;
 			  case 4:
-				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(0, builder);
-				gameBoard[coord[0]-0][coord[1]-1].buildSettlement(2, builder);	 
-								  
+				gameBoard[coord[0]+0][coord[1]+1].buildSettlement(0, builder);
+				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(2, builder);	 	  
 				 break;
 			  case 5:
-				gameBoard[coord[0]-1][coord[1]-1].buildSettlement(3, builder);
-				gameBoard[coord[0]-0][coord[1]-1].buildSettlement(1, builder);	 
-					
+				gameBoard[coord[0]-1][coord[1]+0].buildSettlement(1, builder);	 
+				gameBoard[coord[0]+0][coord[1]-1].buildSettlement(3, builder);
 				    break;
-			  default:
-			    System.out.println("RIP");
 			}
 		}
 	}
+	
 	public void buildCity (Player builder, String tileName, int pos) {
 		int[] coord = tileNameMap.get(tileName);
-		boolean result = gameBoard[coord[0]][coord[1]].canPlaceCity(pos,builder);
+//		boolean result = gameBoard[coord[0]][coord[1]].canPlaceCity(pos,builder);
+		boolean result = this.validCityIndex(tileName, pos, builder);
 		
 		if(result) {
+			gameBoard[coord[0]][coord[1]].buildCity(pos, builder); //build on current tile
 			switch(pos) {
-			 
 			  case 0:
-				gameBoard[coord[0]+1][coord[1]-1].buildCity(2, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildCity(4, builder);
+				gameBoard[coord[0]+0][coord[1]-1].buildCity(2, builder);
+				gameBoard[coord[0]+1][coord[1]-1].buildCity(4, builder);
 			    break;
 			  case 1:
-				  gameBoard[coord[0]+1][coord[1]+1].buildCity(5, builder);
-				gameBoard[coord[0]+1][coord[1]+0].buildCity(3, builder);
+				gameBoard[coord[0]+1][coord[1]-1].buildCity(3, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildCity(5, builder);
 				    break;
 			  case 2:
-				  
-				gameBoard[coord[0]+1][coord[1]+1].buildCity(4, builder);
-				gameBoard[coord[0]+0][coord[1]+1].buildCity(0, builder);
+				gameBoard[coord[0]+1][coord[1]+0].buildCity(4, builder);
+				gameBoard[coord[0]+1][coord[1]+1].buildCity(0, builder);
 				    break;
 			  case 3:
-				gameBoard[coord[0]-1][coord[1]+0].buildCity(1, builder);
-				gameBoard[coord[0]-0][coord[1]+1].buildCity(5, builder);	  
-				  
+				gameBoard[coord[0]+1][coord[1]+1].buildCity(5, builder);	 
+				gameBoard[coord[0]+0][coord[1]+1].buildCity(1, builder);
 				    break;
 			  case 4:
-				gameBoard[coord[0]-1][coord[1]+0].buildCity(0, builder);
-				gameBoard[coord[0]-0][coord[1]-1].buildCity(2, builder);	 
-								  
+				gameBoard[coord[0]+0][coord[1]+1].buildCity(0, builder);
+				gameBoard[coord[0]-1][coord[1]+0].buildCity(2, builder);	 	  
 				 break;
 			  case 5:
-				gameBoard[coord[0]-1][coord[1]-1].buildCity(3, builder);
-				gameBoard[coord[0]-0][coord[1]-1].buildCity(1, builder);	 
-					
+				gameBoard[coord[0]-1][coord[1]+0].buildCity(1, builder);	 
+				gameBoard[coord[0]+0][coord[1]-1].buildCity(3, builder);
 				    break;
-			  default:
-			    System.out.println("RIP");
 			}
 		}
 		
