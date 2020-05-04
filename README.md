@@ -33,6 +33,24 @@
 
 Note From Andy: At the end of this iteration I ran into a lot of issues with Eclipse. I spent several hours on stack overflow trying to fix it but was unable to.  The temporary solution to this was copying relevant code to a new project and working from their and sending over my code manually to be merged. I will get this fixed for the next iteration.
 
+
+## Iteration 3: Final Stretch
+
+- What user stories were completed this iteration?
+  * Andy finished the visual game board so that roads, cities, and settlements are able to be displayed as well as worked on gameboards structure building methods.
+  * Jakob implented the game logic including the text based user interface, turn system, setup phase, and win conditions.
+  * Evan fixed our issue with the scipt as well work on features related to building/ buying settlements.
+  
+  - What user stories do you intend to complete next iteration?
+ *  Our goal for this iteration was to to take the foundation we had build in the previous to interatction and combine our front and backend to build a working game. From a user perspective we would like to users to be able to interact with a text based interface and have the game decisions appear on our visual display.  Users would be able to build and buy sructures using cards they pick up based on the dice rolls.
+  
+- Is there anything that you implemented but doesn't currently work?
+Minor Tweaks to the Catan Game:  No Dev Cards, You can be 1 road away to settle rather than 2.
+
+Coming in we were very ambitious and picked a more difficult game that what was required but we were able to complete a game that resembles our initial idea with a few small tweaks which we see as a big win given the circumstances.
+
+Note From Andy:  Entering this iteration I reached out to Prof. Shook my project issues from the pervious iteration.  Through this I was able to partly fix the issue to the point where I could run everything iteration with no issues but this required modyifying the project structure.  So although one issue was solved it caused another so I ended up having to send over code to my partners to commit in my stead.
+
 ## Testing instructions
 
 - If you're not familiar with Catan, check out the rules here: https://www.wired.co.uk/article/beginners-guide-to-settlers-of-catan
