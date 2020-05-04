@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Player {
 	Map<CardType, Integer> handCardAmounts;
 	ArrayList<DevelopmentCard> devCards;
-	PlayerType type;
+	private PlayerType type;
 	int victoryPoints = 0;
 	
 	public Player(PlayerType t) {
@@ -32,7 +32,7 @@ public class Player {
 		handCardAmounts.put(CardType.SHEEP, 0);
 		handCardAmounts.put(CardType.DEVELOPMENT, 0);
 		
-		type = t;
+		setType(t);
 	}
 	
 	// for adding resource card(s) when you have the card type but no Card instance
@@ -118,5 +118,22 @@ public class Player {
 			return true;
 		}
 		return false;
+	}
+
+	public PlayerType getType() {
+		return type;
+	}
+
+	public void setType(PlayerType type) {
+		this.type = type;
+	}
+	
+	public String getName() {
+		return this.type.name();
+	}
+	
+	public void printHand() {
+		System.out.println("Your Hand:");
+		handCardAmounts.forEach((cardType,amount) -> System.out.println(cardType.name() + ": " + amount));
 	}
 }
