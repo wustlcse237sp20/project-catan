@@ -19,5 +19,9 @@ public class SettlementStructure extends Structure {
 	public void build(Player player, GameBoard board) {
 		System.out.print("Building Settlement");
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 
 }

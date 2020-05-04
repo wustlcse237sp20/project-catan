@@ -16,4 +16,8 @@ public class RoadStructure extends Structure {
 	public void build(Player player, GameBoard board) {
 		System.out.print("Building Road");
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 }

@@ -38,7 +38,8 @@ class GameBoardTests {
 		double x = 2;
 		double y = 2;
 		double hexagonRadius = 4;
-		Gameboard.genBoard(x,y,hexagonRadius);
+		Gameboard gameboard = new Gameboard(x,y,hexagonRadius);
+		gameboard.genBoard();
 		assertTrue(true);
 	}
 	
@@ -47,8 +48,8 @@ class GameBoardTests {
 		double x = 2;
 		double y = 2;
 		double hexagonRadius = 4;
-		GameBoard gameBoard = new GameBoard();
-		gameBoard.genBoard(x,y,hexagonRadius);
+		Gameboard gameBoard = new Gameboard(x,y,hexagonRadius);
+		gameBoard.genBoard();
 	
 		int n = 3;
 		Tile tile = gameBoard.getTile(n,n);

@@ -36,6 +36,12 @@ public class Player {
 		purchasableOptions.add(new CityStructure(this));
 	}
 	
+	// for checking a player hand
+	public int getCardsInHand(CardType type) {
+		int numCards = handCardAmounts.get(type);
+		return numCards;
+	}
+	
 	// for adding resource card(s) when you have the card type but no Card instance
 	public void addCardsToHand(CardType cardType, int amount) {
 		System.out.println("adding " + amount + " cards");
@@ -52,7 +58,7 @@ public class Player {
 		int newAmount = handCardAmounts.get(cardType) - amount;
 		if(newAmount < 0) {
 			newAmount = 0;
-			System.out.println("something went wrong, subtracted too many cards from hand");
+			System.out.println("Subtracted more cards than available.");
 		}
 		handCardAmounts.replace(cardType, newAmount);
 	}
@@ -64,12 +70,7 @@ public class Player {
 			devCards.add((DevelopmentCard)newCard);
 		}
 	}
-	
-	// for checking a player hand
-	public int getCardsInHand(CardType type) {
-		int numCards = handCardAmounts.get(type);
-		return numCards;
-	}
+
 	
 	// Structure Factory
 	public Structure buildStructure(StructureType model) {

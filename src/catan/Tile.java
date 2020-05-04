@@ -3,6 +3,14 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import catan.StdDraw;
+import catan.CardType;
+import catan.Player;
+import catan.CityStructure;
+import catan.RoadStructure;
+import catan.SettlementStructure;
+import catan.Structure;
+
 public class Tile {
 	private double centerX;
 	private double centerY;
@@ -70,8 +78,7 @@ public class Tile {
 			double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
 			StdDraw.setPenColor(color);
 			StdDraw.filledPolygon(xCoord, yCoord);
-			StdDraw.setPenColor(StdDraw.PINK);
-			
+			StdDraw.setPenColor(StdDraw.PINK);	
 			
 			StdDraw.filledCircle(centerX, centerY, width/2);
 			StdDraw.setPenColor(StdDraw.WHITE);
@@ -83,7 +90,6 @@ public class Tile {
 			} else {
 				
 				StdDraw.text(centerX, centerY, value+"-"+name);
-				
 			}
 	}
 	public void drawRoads() {
@@ -120,6 +126,35 @@ public class Tile {
 	}
 	
 	
+	public void drawRoads() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileRoads.length; i++ ) {
+			//check if road is there
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.CYAN);
+			StdDraw.setPenRadius(.02);
+			StdDraw.line(xCoord[i], yCoord[i],xCoord[(i+1)%6], yCoord[(i+1)%6]);
+		}
+		//Set pen color using roads players player Type
+	}
+	
+	public void drawStructures() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileSettlements.length; i++ ) {
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
+			StdDraw.filledCircle(xCoord[i], yCoord[i], .025);
+			StdDraw.setPenColor(StdDraw.BLACK);
+			//check if city or settlement then set string
+		}	
+	}
+	
 	public boolean hasRobber() {
 		return hasRobber;
 	}
@@ -149,8 +184,6 @@ public class Tile {
 		hasRobber = newValue;
 	}
 
-	
-	
 	public int getValue() {
 		return value;
 	}
@@ -159,7 +192,6 @@ public class Tile {
 		return name;
 	}
 	 
-	
 	public Structure[] getRoads() {
 		return tileRoads;
 	}
@@ -169,46 +201,63 @@ public class Tile {
 		return tileSettlements;
 	}
 	
-	/**
-	 * Updates Tile's tileRoads[] array with a new road from a Player.
-	 * @return 0 if index is taken, 1 if index is available and road inserted
-	*/
-	public int buildRoad( int index, Player builder) {
+	//@ TODO: add in adjacency rules
+	public boolean canPlaceRoad(int index, Player builder) {
 		if(index < 0 || index > 5) { //index out of bounds
-			return 0;
+			return false;
 		}
-		if(this.getRoads()[index] != null) { //if someone has built there
-			return 0;
+		else if(this.getRoads()[index] != null) { //if someone has built there
+			return false;
 		}
 		else {
-			this.getRoads()[index] = new RoadStructure(builder);
-			return 1;
+			return true;
 		}
 	}
 	
-	/**
-	 * Updates Tile's tileSettlements[] array with a new settlement from a Player.
-	 * @return 0 if index is taken, 1 if index is available and settlement built
-	*/
-	public int buildSettlement( int index, Player builder) {
+	//@ TODO: add in adjacency rules
+	public boolean canPlaceSettlement(int index, Player builder) {
 		if(index < 0 || index > 5) { //index out of bounds
-			return 0;
+			return false;
 		}
 		if(this.tileSettlements[index] != null) { //if someone has built there
-			return 0;
+			return false;
 		}
 		else {
-			this.tileSettlements[index] = new SettlementStructure(builder);
-			return 1;
+			return true;
 		}
 	}
 	
-	public int buildCity( int index, Player builder) {
+	public boolean canPlaceCity(int index, Player builder) {
 		if(index < 0 || index > 5) { //index out of bounds
-			return 0;
+			return false;
 		}
+		else if(this.tileSettlements[index] == null) {
+			return false;
+		}
+		else if(this.tileSettlements[index].getOwner() != builder) { //builder does not have settlement 
+			return false;
+		}
+		else if(this.tileSettlements[index].getType() == StructureType.CITY) { //if is already a city
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	/**
+	 * Updates Tile's tileRoads[] array with a new road from a Player.
+	*/
+	public void buildRoad( int index, Player builder) {
+		this.tileRoads[index] = new RoadStructure(builder);
+	}
+
+	public void buildSettlement( int index, Player builder) {
+		this.tileSettlements[index] = new SettlementStructure(builder);
+	}
+	
+	public void buildCity( int index, Player builder) {
 		this.tileSettlements[index] = new CityStructure(builder);
-		return 1;
 	}
 	
 	public void payout() {
@@ -218,6 +267,8 @@ public class Tile {
 			}
 		}
 	}
+	
+	
 	
   
 }

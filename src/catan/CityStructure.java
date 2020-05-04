@@ -12,6 +12,10 @@ public class CityStructure extends Structure {
 		cost.put(CardType.ORE, 3);
 		type = StructureType.CITY;
 	}
+	
+	public StructureType getType() {
+		return type;
+	}
 
 	@Override
 	public void build(Player player, GameBoard board) {

@@ -1,18 +1,20 @@
 package Tests.BoardTests;
-
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import catan.Player;
-import catan.PlayerType;
-import catan.StdDraw;
-import catan.Tile;
+import catan.*;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+
+import catan.*;
 
 class TileTests {
 	
@@ -29,18 +31,12 @@ private Player player3;
 		Color tileColor = StdDraw.GRAY;
 		double tileWidth = 20;
 		
-		testTile = new Tile(x,y,tileValue,tileColor,tileWidth,CardType.BRICK);
+		testTile = new Tile(x,y,tileValue,tileColor,tileWidth,CardType.BRICK, "A");
 		player1 = new Player(PlayerType.WHITE);		
 		player2 = new Player(PlayerType.BLUE);
 		player3 = new Player(PlayerType.ORANGE);
 		
-		testTile.getRoads()[0] = new RoadStructure(player1);
-		testTile.getRoads()[1] = new RoadStructure(player2);
-		testTile.getRoads()[2] = new RoadStructure(player3);
 		
-		testTile.getSettlements()[0] = new SettlementStructure(player1);
-		testTile.getSettlements()[1] = new SettlementStructure(player2);
-		testTile.getSettlements()[2] = new SettlementStructure(player3);
 	}
 
 	@Test
@@ -67,59 +63,73 @@ private Player player3;
 	
 	@Test 
 	void testGetRoads(){
+		testTile.getRoads()[0] = new RoadStructure(player1);
 		assertTrue(testTile.getRoads()[0].getOwner() == player1);
-		assertTrue(testTile.getRoads()[1].getOwner() == player2);
-		assertTrue(testTile.getRoads()[2].getOwner() == player3);
 	}
 	
 	@Test
 	void testGetSettlements() {
+		testTile.getSettlements()[0] = new SettlementStructure(player1);
 		assertTrue(testTile.getSettlements()[0].getOwner() == player1);
-		assertTrue(testTile.getSettlements()[1].getOwner() == player2);
-		assertTrue(testTile.getSettlements()[2].getOwner() == player3);
+	}
+	
+	
+	@Test
+	void testCanPlaceRoad() {
+		testTile.getRoads()[3] = new RoadStructure(player1);
+		assertFalse(testTile.canPlaceRoad(3, player1));
+		assertTrue(testTile.canPlaceRoad(4,player2));
+		assertFalse(testTile.canPlaceRoad(6, player1));
+		assertFalse(testTile.canPlaceRoad(-1, player1));
 	}
 	
 	@Test
-	void testBuildRoad() {
-		assertFalse(testTile.buildRoad( 0, player1) == 1);
-		assertFalse(testTile.buildRoad( 1, player2) == 1);
-		assertFalse(testTile.buildRoad( 2, player3) == 1);
-		
-		assertTrue(testTile.buildRoad( 3, player3) == 1);
-		assertTrue(testTile.buildRoad( 4, player3) == 1);
-		assertTrue(testTile.buildRoad( 5, player3) == 1);
-		
-		assertFalse(testTile.buildRoad( 6, player3) == 1);
+	void testCanPlaceSettlement() {
+		testTile.getSettlements()[1] = new SettlementStructure(player1);
+		assertFalse(testTile.canPlaceSettlement(1, player1));
+		assertTrue(testTile.canPlaceSettlement(2, player2));
+		assertFalse(testTile.canPlaceSettlement(6, player1));
+		assertFalse(testTile.canPlaceSettlement(-1, player1));
+	}
+	
+	@Test
+	void testCanPlaceCity() {
+		testTile.getSettlements()[1] = new SettlementStructure(player1);
+		testTile.getSettlements()[2] = new SettlementStructure(player2);
 
+		assertTrue(testTile.canPlaceCity(1, player1));
+		assertFalse(testTile.canPlaceCity(2, player1));
+		assertFalse(testTile.canPlaceCity(3, player1));
+		assertFalse(testTile.canPlaceCity(6, player1));
+		assertFalse(testTile.canPlaceCity(-1, player1));
+	
+		testTile.getSettlements()[3] = new CityStructure(player3);
+		assertFalse(testTile.canPlaceCity(3,player3));
 	}
 	
-	@Test
-	void testBuildSettlement() {
-		assertFalse(testTile.buildSettlement( 0, player1) == 1);
-		assertFalse(testTile.buildSettlement( 1, player2) == 1);
-		assertFalse(testTile.buildSettlement( 2, player3) == 1);
-		
-		assertTrue(testTile.buildSettlement( 3, player3) == 1);
-		assertTrue(testTile.buildSettlement( 4, player3) == 1);
-		assertTrue(testTile.buildSettlement( 5, player3) == 1);
-		
-		assertFalse(testTile.buildSettlement( 6, player3) == 1);	
-	}
 	
 	@Test
 	void testPayout() {
-		Player p1 = new Player(PlayerType.BLUE);
-		Player p2 = new Player(PlayerType.RED);
-		Tile tile  = new Tile(1.0,1.0,2,Color.yellow,20,CardType.WHEAT);
-		tile.buildCity(1, p1);
-		tile.buildSettlement(3, p2);
-		int oldP1Wheat = p1.getCardsInHand(CardType.WHEAT);
-		int oldP2Wheat = p2.getCardsInHand(CardType.WHEAT);
-		tile.payout();
-		System.out.println(oldP2Wheat);
-		System.out.println(p2.getCardsInHand(CardType.WHEAT));
-		assertTrue(p1.getCardsInHand(CardType.WHEAT)-oldP1Wheat == 2);
-		assertTrue(p2.getCardsInHand(CardType.WHEAT)-oldP2Wheat == 1);
+		testTile.buildSettlement(1, player1);
+		testTile.buildSettlement(3, player2);
+		
+		testTile.payout();
+		
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 1);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 1);
+		assertFalse(player3.getCardsInHand(CardType.BRICK) == 1);
+		
+		testTile.payout();
+
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 2);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 2);
+		
+		testTile.buildCity(1, player1);
+		
+		testTile.payout();
+		
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 4);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 3);
 	}
 	
 }

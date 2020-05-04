@@ -14,6 +14,10 @@ public abstract class Structure implements Purchasable {
 		this.vpYield = yield;
 	}
 	
+	public StructureType getType() {
+		return type;
+	}
+	
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
 		for(Entry<CardType, Integer> costValue: cost.entrySet()){
 			CardType checkingCardType = costValue.getKey();
