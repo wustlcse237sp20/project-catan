@@ -44,8 +44,8 @@ public class Game {
 		}
 	}
 	private void run() {
-		while(true) {
 		// Run snake draft setup
+		while(snakeDraft.size() > 0) {
 			this.setupTurn();
 		}
 		gameBoard.endSetupPhase();
