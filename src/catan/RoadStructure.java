@@ -3,17 +3,18 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class RoadStructure extends Structure {
-	static StructureType type = StructureType.ROAD;
-	static Map<CardType, Integer> cost;
-	static {
+	
+	public RoadStructure(Player o) {
+		super(o,0);
 		cost = new HashMap<CardType, Integer>();
 		cost.put(CardType.BRICK, 1);
 		cost.put(CardType.LUMBER, 1);
+		type = StructureType.ROAD;
 	}
-	static int vpYield = 0;
-
-	public RoadStructure(Player o) {
-		super(o,0);
+	
+	@Override
+	public void build(Player player, GameBoard board) {
+		System.out.print("Building Road");
 	}
 	
 	public StructureType getType() {

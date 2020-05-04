@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 
 public abstract class Structure implements Purchasable {
 	StructureType type;
-	static Map<CardType, Integer> cost;
+	Map<CardType, Integer> cost;
 	int vpYield;
 	
 	Player owner;
@@ -41,5 +41,9 @@ public abstract class Structure implements Purchasable {
 	
 	public Player getOwner() {
 		return owner;
+	}
+	
+	public String getName() {
+		return type.name();
 	}
 }

@@ -18,4 +18,7 @@ public abstract class Card implements Purchasable {
 	@Override
 	public abstract Map<CardType, Integer> getCost();
 
+	public String getName() {
+		return type.name();
+	}
 }

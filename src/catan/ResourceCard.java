@@ -33,5 +33,10 @@ public class ResourceCard extends Card {
 	public Map<CardType, Integer> getCost() {
 		return affordableCost;
 	}
+	
+	@Override
+	public void build(Player player, GameBoard board) {
+		System.out.print("Building Resource Card");
+	}
 
 }
