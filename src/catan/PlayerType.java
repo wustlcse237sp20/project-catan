@@ -1,7 +1,7 @@
 package catan;
 
 public enum PlayerType {
-	WHITE(0), RED(1), Blue(2), ORANGE(3);
+	WHITE(0), RED(1), BLUE(2), ORANGE(3);
 		
 		private int id;
 		
