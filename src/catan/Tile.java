@@ -95,7 +95,7 @@ public class Tile {
 		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
 		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
 		for(int k=0;k< tileRoads.length; k++ ) {
-			int i = (k-3)%6;
+			int i = Math.abs(k-3)%6;
 			//check if road is there
 			//Set pen color using roads players player Type
 			Structure road = tileRoads[i];
@@ -114,7 +114,7 @@ public class Tile {
 		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
 		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
 		for(int k=0;k< tileSettlements.length; k++ ) {
-			int i = (k-1)%6;
+			int i = Math.abs(k-1)%6;
 			//Set pen color using roads players player Type
 			Structure structure = tileSettlements[i];
 			if(structure != null) {
