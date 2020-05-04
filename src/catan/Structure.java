@@ -46,4 +46,18 @@ public abstract class Structure implements Purchasable {
 	public String getName() {
 		return type.name();
 	}
+
+	public Coordinate readBuildInput() {
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Select a Tile");
+		String tileName = input.nextLine();
+		
+		System.out.println("Select an Index");
+		int index = input.nextInt();
+		
+		input.close();
+		
+		return new Coordinate(tileName, index);
+	}
 }
