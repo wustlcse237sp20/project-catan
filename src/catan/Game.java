@@ -3,9 +3,9 @@ package catan;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import catan.Board.GameBoard;
-import catan.Player.Player;
-import catan.Player.PlayerType;
+import catan.GameBoard;
+import catan.Player;
+import catan.PlayerType;
 
 public class Game {
 	GameBoard gameBoard;
@@ -14,7 +14,7 @@ public class Game {
 	Player currentlyPlaying;
 
 	public Game() {
-		gameBoard = new GameBoard();
+		gameBoard = new GameBoard(0, 0, 0);
 		players = new ArrayList<Player>();
 		inputScanner = new Scanner(System.in);
 		this.addPlayers();

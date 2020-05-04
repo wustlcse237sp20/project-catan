@@ -12,6 +12,7 @@ public class Tile {
 	private double width;
 	private boolean hasRobber;
 	private  ArrayList<Tile> adjacent;
+	private String name;
 	
 	
 	private Structure[] tileRoads; //represents the EDGES of each tile where roads are
@@ -27,13 +28,15 @@ public class Tile {
 	 * @param tileRoads array of index 6. Each cell represents an edge on the tile, with index 0 referencing middle-left edge, going clockwise
 	 * @param tileSettlements is same as tileRoads but representing corner of tile, with index 0 referencing the top corner, going clockwise
 	 */
-	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth, CardType type) {
+	
+	public Tile(double x, double y, int tileValue, Color tileColor, double tileWidth, CardType type, String tileName) {
 		centerX = x;
 		centerY = y;
 		value = tileValue;
 		color = tileColor;
 		width = tileWidth;
 		cardType = type;
+		name = tileName;
 		
 		tileRoads = new Structure[6]; 
 		tileSettlements = new Structure[6];
@@ -58,6 +61,8 @@ public class Tile {
 	/**
 	 * Draws a hexagonal tile based on its x/y coordinates, color, and value
 	 */
+	
+	
 	public void drawTile() {
 		double hypotenuse = Math.sqrt(2);
 		double multiple = width*hypotenuse;
@@ -70,14 +75,50 @@ public class Tile {
 			
 			StdDraw.filledCircle(centerX, centerY, width/2);
 			StdDraw.setPenColor(StdDraw.WHITE);
+			drawRoads();
+			drawStructures();
+			
 			if( hasRobber) {
-				StdDraw.text(centerX, centerY, "R")	;
+				StdDraw.text(centerX, centerY, "R-"+name)	;
 			} else {
 				
-				StdDraw.text(centerX, centerY, value+"");
+				StdDraw.text(centerX, centerY, value+"-"+name);
 				
 			}
 	}
+	public void drawRoads() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileRoads.length; i++ ) {
+			//check if road is there
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.CYAN);
+			StdDraw.setPenRadius(.02);
+			StdDraw.line(xCoord[i], yCoord[i],xCoord[(i+1)%6], yCoord[(i+1)%6]);
+			
+		}
+		//Set pen color using roads players player Type
+		
+		
+	}
+	public void drawStructures() {
+		double hypotenuse = Math.sqrt(2);
+		double multiple = width*hypotenuse;
+		double[] xCoord = {centerX+width, centerX +width, centerX, centerX-width,centerX-width, centerX };
+		double[] yCoord = {centerY+multiple/2, centerY - multiple/2, centerY-2*multiple/2, centerY-multiple/2, centerY+multiple/2, centerY+2*multiple/2};
+		for(int i=0;i< tileSettlements.length; i++ ) {
+			//Set pen color using roads players player Type
+			StdDraw.setPenColor(StdDraw.PRINCETON_ORANGE);
+			StdDraw.filledCircle(xCoord[i], yCoord[i], .025);
+			StdDraw.setPenColor(StdDraw.BLACK);
+			//check if city or settlement then set string
+		}
+		
+		
+	}
+	
 	
 	public boolean hasRobber() {
 		return hasRobber;
@@ -114,6 +155,9 @@ public class Tile {
 		return value;
 	}
 	
+	public String getName() {
+		return name;
+	}
 	 
 	
 	public Structure[] getRoads() {
@@ -175,9 +219,5 @@ public class Tile {
 		}
 	}
 	
-  public static void main(String[] args) {
-		// TODO Auto-generated method stub 
-      System.out.println("SDFSDF");
-	}
+  
 }
-
