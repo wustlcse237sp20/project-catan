@@ -1,37 +1,42 @@
 package catan;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-//import catan.Tile;
-//import catan.Card;
-//import catan.DevelopmentCard;
-//import catan.CardType;
-//
-//import catan.Player.*;
-//import catan.Structures.*;
+import catan.*;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Gameboard {
-
-	
-	private static int[] originalTileValues = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
-	private static Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
-	private static Tile[] tiles = new Tile[tileColors.length];
-	private static Tile[][] gameBoard = new Tile[7][7];
+public class GameBoard {
 	
 	
-	public static void genBoard(double centerX, double centerY, double hexagonRadius) {
+	
+	
+	private int[] originalTileValues = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
+	private Color[] tileColors = {StdDraw.GRAY,StdDraw.GRAY,StdDraw.GRAY,StdDraw.RED,StdDraw.RED,StdDraw.RED,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.YELLOW,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.GREEN,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.WHITE,StdDraw.BLACK};
+	private Tile[] tiles = new Tile[tileColors.length];
+	private Tile[][] gameBoard = new Tile[7][7];
+	public  Map <Integer,ArrayList<Tile>> tileValueMap = new HashMap<Integer,ArrayList<Tile>>();
+	private double centerX, centerY, hexagonRadius;
+	
+	public GameBoard(double gameCenterX,double gameCenterY,double gameHexagonRadius) {
+		centerX = gameCenterX;
+		centerY= gameCenterY;
+		hexagonRadius=gameHexagonRadius;
+	}
+	
+	public void genBoard() {
 		drawBackground();
+		
 		//tile coordinates Created
 		double[] xCoords= {centerX,centerX+2*hexagonRadius,centerX-2*hexagonRadius,centerX-hexagonRadius,centerX+1*hexagonRadius,centerX-3*hexagonRadius,centerX+3*hexagonRadius,centerX,centerX+2*hexagonRadius,centerX-2*hexagonRadius,centerX+4*hexagonRadius,centerX-4*hexagonRadius,centerX-hexagonRadius,centerX+1*hexagonRadius,centerX-3*hexagonRadius,centerX+3*hexagonRadius,centerX,centerX+2*hexagonRadius,centerX-2*hexagonRadius};
 		double[] yCoords= {centerY+6*(hexagonRadius*(Math.sqrt(2)))/2,centerY+6*(hexagonRadius*(Math.sqrt(2)))/2,centerY+6*(hexagonRadius*(Math.sqrt(2)))/2,centerY+3*(hexagonRadius*(Math.sqrt(2)))/2,centerY+3*(hexagonRadius*(Math.sqrt(2)))/2,centerY+3*(hexagonRadius*(Math.sqrt(2)))/2,centerY+3*(hexagonRadius*(Math.sqrt(2)))/2, centerY, centerY, centerY, centerY, centerY,centerY-3*(hexagonRadius*(Math.sqrt(2)))/2,centerY-3*(hexagonRadius*(Math.sqrt(2)))/2,centerY-3*(hexagonRadius*(Math.sqrt(2)))/2,centerY-3*(hexagonRadius*(Math.sqrt(2)))/2,centerY-6*(hexagonRadius*(Math.sqrt(2)))/2,centerY-6*(hexagonRadius*(Math.sqrt(2)))/2,centerY-6*(hexagonRadius*(Math.sqrt(2)))/2,
 				};
-		
+		String[] tileNames = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","Q","R","S","T"};
 		int[] newTileValues = shuffle(originalTileValues);
 		Collections.shuffle(Arrays.asList(tileColors));		
 		 
@@ -40,10 +45,10 @@ public class Gameboard {
 		int robberOffset =0;
 		for (int i=0; i<xCoords.length;i++) {
 			if(tileColors[i]!=StdDraw.BLACK) {
-					tiles[i]= new Tile(xCoords[i],yCoords[i],newTileValues[i-robberOffset],tileColors[i],hexagonRadius,CardType.ORE);	
+					tiles[i]= new Tile(xCoords[i],yCoords[i],newTileValues[i-robberOffset],tileColors[i],hexagonRadius,CardType.ORE,tileNames[i]);	
 			} 
 			else {
-					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius, CardType.WHEAT);
+					tiles[i]= new Tile(xCoords[i],yCoords[i],0,tileColors[i],hexagonRadius, CardType.WHEAT,tileNames[i]);
 					robberOffset=1;
 			}
 			//tiles[i].drawTile();
@@ -69,10 +74,7 @@ public class Gameboard {
 		    		 gameBoard[j][i].drawTile();
 		    		 
 		    		ArrayList<Tile> tileArray = tileValueMap.get(gameBoard[j][i].getValue());
-		    		if (tileArray == null) {
-		    			tileArray = new ArrayList<Tile>();
-		    		}
-		    		tileArray.add(gameBoard[j][i]);
+		    		
 		    		tileValueMap.put(gameBoard[j][i].getValue(), tileArray);
 		    	 }
 		    	 
@@ -80,55 +82,17 @@ public class Gameboard {
 		     }
 		
 		
-		for (int j = 0; j<gameBoard.length; j++){
-			
-		     for (int i = 0; i<gameBoard[0].length; i++){
-		    	 if(gameBoard[j][i]!=null) {
-		    		 gameBoard[j][i].drawTile();
-		    		 System.out.println("x:   " + gameBoard[j][i].getPoint().x + "  y:   " + gameBoard[j][i].getPoint().y );
-		    			
-		    	 }
-		    	 
-		     }
-		     }	
-		int [][] offsets = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1}};
-		for (int j = 0; j<gameBoard.length; j++){
-			
-		     for (int i = 0; i<gameBoard[0].length; i++){
-		    	 if(gameBoard[j][i]!=null) {
-		    		 ArrayList<Tile> adjacent = new ArrayList<Tile>();
-		    		 for(int k=0; k< offsets.length;k++) {
-		    			 int x = i + offsets[k][1];
-		    			int y = j + offsets[k][0];
-		    			 if(!(x<0 || y<0 || x>gameBoard.length || y>gameBoard.length || gameBoard[x][y]==null)) {
-		    				 adjacent.add( gameBoard[y][x]);
-		    			 }
-		    		 }
-		    		 
-		    			 System.out.println();
-		    			 System.out.println("Current: " +  gameBoard[j][i].getValue());
-		    			 System.out.println("adjacent ");
-		    		    		 for (int it =0 ; it<adjacent.size(); it++) {
-		    		    			 if(adjacent.get(it)!=null) {
-		    		    				 System.out.print(" " + adjacent.get(it).getValue());
-		    		    			 }
-		    		    			 
-		    		    		 } 
-		    		 
-		    		 
-		    	Collections.sort(adjacent,(a,b) -> a.comparePoint(b.getPoint()));
-		    	gameBoard[i][j].setAdjacent(adjacent);
-		    	 }
-		     }
-		}
+		
+		int [][] offsets = {{-1,-1,},{-1,0,},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+		
 	}
 	
-	public static void drawBackground() {
+	public void drawBackground() {
 		StdDraw.setPenColor(StdDraw.BOOK_LIGHT_BLUE);
 		StdDraw.filledSquare(0, 0, 1);
 	}
 	
-	public static void giveRobber(Tile newRobberTile) {
+	public void giveRobber(Tile newRobberTile) {
 		for (Tile tile : tiles) 
 		{ 
 		   if (tile.hasRobber()) {
@@ -140,12 +104,12 @@ public class Gameboard {
 		}
 	}
 	
-	public static Tile[] getTiles() {
+	public Tile[] getTiles() {
 		return tiles;
 	}
 	
 	//https://www.programcreek.com/2012/02/java-method-to-shuffle-an-int-array-with-random-order/
-	public static int[] shuffle(int[] array) {
+	public int[] shuffle(int[] array) {
 		Random rgen = new Random();  	
 		for (int i=0; i<array.length; i++) {
 		    int randomPosition = rgen.nextInt(array.length);
@@ -166,13 +130,11 @@ public class Gameboard {
 	}
 	 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub 
-		System.out.println("SDFSDF");
 		double centerX = .5;
 		double centerY= .5;
 		double hexagonRadius=.07;
 		StdDraw.setCanvasSize(700, 700);
-		GameBoard gameBoard = new GameBoard();
-		gameBoard.genBoard(centerX, centerY, hexagonRadius);
+		GameBoard gameBoard = new GameBoard(centerX, centerY, hexagonRadius);
+		gameBoard.genBoard();
 	}
 }
