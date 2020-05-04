@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import catan.Gameboard;
+import catan.GameBoard;
 import catan.StdDraw;
 import catan.Tile;
 

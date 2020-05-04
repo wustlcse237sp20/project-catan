@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Gameboard {
+public class GameBoard {
 	
 	
 	
@@ -23,7 +23,7 @@ public class Gameboard {
 	public  Map <Integer,ArrayList<Tile>> tileValueMap = new HashMap<Integer,ArrayList<Tile>>();
 	private double centerX, centerY, hexagonRadius;
 	public  Map <String,int[]> tileNameMap = new HashMap<String,int[]>();
-	public Gameboard(double gameCenterX,double gameCenterY,double gameHexagonRadius) {
+	public GameBoard(double gameCenterX,double gameCenterY,double gameHexagonRadius) {
 		centerX = gameCenterX;
 		centerY= gameCenterY;
 		hexagonRadius=gameHexagonRadius;
@@ -263,7 +263,7 @@ public class Gameboard {
 		double centerY= .5;
 		double hexagonRadius=.07;
 		StdDraw.setCanvasSize(700, 700);
-		Gameboard gameBoard = new Gameboard(centerX, centerY, hexagonRadius);
+		GameBoard gameBoard = new GameBoard(centerX, centerY, hexagonRadius);
 		gameBoard.genBoard();
 	}
 }
