@@ -47,9 +47,5 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
-	@Test
-	void testValidSettlementIndex() {
-		board[4][4].b
-	}
 
 }
