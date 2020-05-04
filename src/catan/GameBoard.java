@@ -74,30 +74,174 @@ public class GameBoard {
 		    	 }   	 
 		     }
 		}
-		
-		int [][] offsets = {{-1,-1,},{-1,0,},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
-		for (int j = 0; j<gameBoard.length; j++){
-		     for (int i = 0; i<gameBoard[0].length; i++){
-		    	 if(gameBoard[j][i]!=null) {
-		    	 ArrayList<Tile> adjacent = new ArrayList<Tile>();
-		    	 for (int l = 0; l < 8; l++) {
-		    		int x = i + offsets[l][0];	// use x + directions[i].dx;
-		    		int y = j + offsets[l][1];	// use y + directions[i].dy;
-		    		if(!(x<0 || y<0 || x>gameBoard.length || y>gameBoard.length || gameBoard[x][y]==null)) {
-		    			adjacent.add( gameBoard[x][y]);
-		    		}
-		    	 }
-		    	 System.out.println();
-    			 System.out.println("Current: " +  gameBoard[j][i].getName());
-    			 System.out.println("adjacent ");
-    		    		 for (int it =0 ; it<adjacent.size(); it++) {
-    		    			 if(adjacent.get(it)!=null) {
-    		    				 System.out.print(" " + adjacent.get(it).getName());
-    		    			 } 
-    		    		 } 
-		    	 }
-		     }
+	}
+	
+	/**
+	 *Checks if player has connecting roads to the index they're trying to build settlement at
+	 */
+	public boolean validSettlementIndex(String tileName, int index, Player builder) {
+		int[] coord = tileNameMap.get(tileName);
+		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
+		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
+		int xOffset = 0, yOffset = 0, roadIndex = 0;
+		boolean toReturn = false;
+		switch(index) {
+			case 0:	//check topLeft road index 3
+				xOffset = 0;
+				yOffset = -1;
+				roadIndex = 3;
+				break;
+			case 1: //check topRight road index 4
+				xOffset = 1;
+				yOffset = -1;
+				roadIndex = 4;
+				break;
+			case 2: //check middleRight road index 5
+				xOffset = 1;
+				yOffset = 0;
+				roadIndex = 5;
+				break;
+			case 3: //check bottomRight road index 0
+				xOffset = 1;
+				yOffset = -1;
+				roadIndex = 0;
+				break; 
+			case 4: //check bottomLeft road index 1
+				xOffset = 0;
+				yOffset = 1;
+				roadIndex = 1;
+				break;
+			case 5: //check middleLeft road index 2
+				xOffset = -1;
+				yOffset = 0;
+				roadIndex = 2;
+				break;
 		}
+		int[] newCoords = {coord[0] + xOffset, coord[1] + yOffset};
+		int tileRoad1 = Math.abs(index -5); //"left" of the settlement index
+		int tileRoad2 = Math.abs(index -4); //"right" of the settlement index
+		
+		//check if settlements at these indices are null for 2 apart requirement
+		int currentTile1 = index - 1; //settlement index to the left of index
+		if(index == 0) {
+			currentTile1 = 5;
+		}
+		int currentTile2 = index + 1; //settlement index to the right of index
+		int tileToCheck1 = index + 1; //the index of corner in tileToCheck that is 1 away from index
+		if(index == 5) {
+			currentTile2 = 1;
+			tileToCheck1 = 1;
+		}
+
+		if(gameBoard[newCoords[0]][newCoords[1]] != null) { //if adjacent is not a water tile
+			tileToCheck = gameBoard[newCoords[0]][newCoords[1]]; 
+			if(currentTile.getRoads()[tileRoad1].getOwner() == builder
+					|| currentTile.getRoads()[tileRoad2].getOwner() == builder
+					|| tileToCheck.getRoads()[roadIndex].getOwner() == builder) {
+				toReturn = true;
+				//CHECK IF 2 apart from other settlements
+				if(currentTile.getSettlements()[currentTile1] != null 
+						|| currentTile.getSettlements()[currentTile2] != null
+						|| tileToCheck.getSettlements()[tileToCheck1] != null) {
+					toReturn = false;
+				}
+			}
+		}
+		else { //if adjacent is water tile
+			if(currentTile.getRoads()[tileRoad1].getOwner() == builder
+					|| currentTile.getRoads()[tileRoad2].getOwner() == builder) {
+				toReturn = true;
+				//CHECK IF 2 apart from other settlements
+				if(currentTile.getSettlements()[currentTile1] != null 
+						|| currentTile.getSettlements()[currentTile2] != null) {
+					toReturn = false;
+				}
+			}
+		}
+		return toReturn;
+	}
+	
+	/**
+	 *Checks if player has connecting roads to the index they're trying to build road at
+	 */
+	public boolean validRoadIndex(String tileName, int index, Player builder) {
+		int[] coord = tileNameMap.get(tileName);
+		Tile currentTile = gameBoard[coord[0]][coord[1]]; //the target the player is indicating
+		Tile tileToCheck = null; //0 -> tLeft, 1-> tRight, 2-> mRight, 3-> bRight, 4-> bLeft, 5->mLeft
+		int xOffset = 0, yOffset = 0;
+		int current1 = 0; //"left" of index on current tile
+		int current2 = 0; //"right" of index on current tile
+		int check1 = 0; //"left" of index on adjacent tile
+		int check2 = 0; //"right" of index on adjacent tile
+		boolean toReturn = false;
+		switch(index) {
+			case 0:	//check topLeft road index 3
+				xOffset = 0;
+				yOffset = -1;
+				current1 = 5;
+				current2 = 1;
+				check1 = 4;
+				check2 = 2;
+				break;
+			case 1: //check topRight road index 4
+				xOffset = 1;
+				yOffset = -1;
+				current1 = 0;
+				current2 = 2;
+				check1 = 5;
+				check2 = 3;
+				break;
+			case 2: //check middleRight road index 5
+				xOffset = 1;
+				yOffset = 0;
+				current1 = 1;
+				current2 = 3;
+				check1 = 0;
+				check2 = 4;
+				break;
+			case 3: //check bottomRight road index 0
+				xOffset = 1;
+				yOffset = -1;
+				current1 = 2;
+				current2 = 4;
+				check1 = 1;
+				check2 = 5;
+				break; 
+			case 4: //check bottomLeft road index 1
+				xOffset = 0;
+				yOffset = 1;
+				current1 = 3;
+				current2 = 5;
+				check1 = 2;
+				check2 = 0;
+				break;
+			case 5: //check middleLeft road index 2
+				xOffset = -1;
+				yOffset = 0;
+				current1 = 4;
+				current2 = 0;
+				check1 = 3;
+				check2 = 1;
+				break;
+		}
+		int[] newCoords = {coord[0] + xOffset, coord[1] + yOffset};
+
+		if(gameBoard[newCoords[0]][newCoords[1]] != null) { //if adjacent is not a water tile
+			tileToCheck = gameBoard[newCoords[0]][newCoords[1]]; 
+			if(currentTile.getRoads()[current1].getOwner() == builder
+					|| currentTile.getRoads()[current2].getOwner() == builder
+					|| tileToCheck.getRoads()[check1].getOwner() == builder
+					|| tileToCheck.getRoads()[check2].getOwner() == builder){
+				toReturn = true;
+			}
+		}
+		else { //if adjacent is water tile
+			if(currentTile.getRoads()[current1].getOwner() == builder
+					|| currentTile.getRoads()[current2].getOwner() == builder){
+				toReturn = true;
+			}
+		}
+		return toReturn;
 	}
 	
 	
@@ -256,6 +400,18 @@ public class GameBoard {
 	
 	public Tile getTile(int x, int y) {
 		return gameBoard[y][x];
+	}
+	
+	public Player getWinner() {
+		int[] playerScores = new int[4];
+		for(Tile tile: tiles) {
+			for(Structure structure: tile.getSettlements()) {
+				int index = structure.owner.getType().getId();
+				playerScores[index] += structure.vpYield;
+				if(playerScores[index]>=10) { return structure.owner; }
+			}
+		}
+		return null;
 	}
 	 
 	public static void main(String[] args) {
