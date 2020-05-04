@@ -35,11 +35,6 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
-	@Test
-	void testShuffle(){
-
-		assertTrue(true);
-	}
 	
 	@Test
 	void testGenBoard() {
@@ -51,22 +46,4 @@ class GameBoardTests {
 		assertTrue(true);
 	}
 	
-	@Test
-	void testAdjacent() {
-		double x = 2;
-		double y = 2;
-		double hexagonRadius = 4;
-		GameBoard gameBoard = new GameBoard(x,y,hexagonRadius);
-		gameBoard.genBoard();
-	
-		int n = 3;
-		Tile tile = gameBoard.getTile(n,n);
-		assertTrue(gameBoard.getTile(n+1,n).isAdjacent(tile));
-		assertTrue(gameBoard.getTile(n-1,n).isAdjacent(tile));
-		assertTrue(gameBoard.getTile(n+1,n+1).isAdjacent(tile));
-		assertTrue(gameBoard.getTile(n+1,n-1).isAdjacent(tile));
-		assertTrue(gameBoard.getTile(n,n+1).isAdjacent(tile));
-		assertTrue(gameBoard.getTile(n,n-1).isAdjacent(tile));
-	}
-
 }
