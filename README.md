@@ -55,10 +55,4 @@ Note From Andy:  Entering this iteration I reached out to Prof. Shook my project
 
 - If you're not familiar with Catan, check out the rules here: https://www.wired.co.uk/article/beginners-guide-to-settlers-of-catan
 
-- Currently have a runGame.sh script that can be executed using "./runGame.sh" in command line. However, this does not seem to be working for some reason (must be debugged). Instead, please run our code through Eclipse:
-
-- Open project in Eclipse --> src --> catan --> Board --> GameBoard.java
-
-- Run GameBoard.java!
-
-- Tests can be found in project --> tests and tests are available for each class/group
+- Currently have a runGame.sh script that can be executed using "./runGame.sh" in command line
