@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd src
-javac ./catan/Gameboard.java
-java catan.Gameboard
+javac ./catan/Game.java
+java catan.Game
