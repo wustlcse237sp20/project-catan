@@ -1,12 +1,19 @@
 package Tests.BoardTests;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.Color;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+
+import catan.*;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import catan.*;
 
 class TileTests {
@@ -103,21 +110,26 @@ private Player player3;
 	
 	@Test
 	void testPayout() {
-//		testTile.buildSettlement(1, player1);
-//		testTile.buildSettlement(3, player2);
-//
-//		Tile newTile  = new Tile(1.0,1.0,2,Color.yellow,20,CardType.WHEAT, "A");
-//		testTile.buildCity(1, player1);
-//		testTile.buildCity(3, player3);
-////		tile.buildCity(1, p1);
-//		tile.buildSettlement(3, p2);
-//		int oldP1Wheat = p1.getCardsInHand(CardType.WHEAT);
-//		int oldP2Wheat = p2.getCardsInHand(CardType.WHEAT);
-//		tile.payout();
-//		System.out.println(oldP2Wheat);
-//		System.out.println(p2.getCardsInHand(CardType.WHEAT));
-//		assertTrue(p1.getCardsInHand(CardType.WHEAT)-oldP1Wheat == 2);
-//		assertTrue(p2.getCardsInHand(CardType.WHEAT)-oldP2Wheat == 1);
+		testTile.buildSettlement(1, player1);
+		testTile.buildSettlement(3, player2);
+		
+		testTile.payout();
+		
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 1);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 1);
+		assertFalse(player3.getCardsInHand(CardType.BRICK) == 1);
+		
+		testTile.payout();
+
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 2);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 2);
+		
+		testTile.buildCity(1, player1);
+		
+		testTile.payout();
+		
+		assertTrue(player1.getCardsInHand(CardType.BRICK) == 4);
+		assertTrue(player2.getCardsInHand(CardType.BRICK) == 3);
 	}
 	
 }

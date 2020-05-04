@@ -1,6 +1,17 @@
 package Tests.CardsTests;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import java.awt.Color;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+
+import catan.Gameboard;
+import catan.StdDraw;
+import catan.Tile;
+
+import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.assertTrue;
