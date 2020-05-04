@@ -17,6 +17,9 @@ public class CityStructure extends Structure {
 		return type;
 	}
 
+	/**
+	 * handles the building of a city, checks if player can afford and if location is valid
+	 */
 	@Override
 	public void build(Player player, GameBoard board) {
 		Coordinate buildLocation = this.readBuildInput();

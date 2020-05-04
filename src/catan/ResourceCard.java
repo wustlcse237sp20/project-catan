@@ -15,7 +15,7 @@ public class ResourceCard extends Card {
 
 	/**
 	 * If quantity of any of the cars is >= 4, then returns true 
-	 * because then player can trade for other resources
+	 * because then player can trade with the bank for this resource
 	 */
 	@Override
 	public boolean canPlayerAfford(Map<CardType, Integer> hand) {
