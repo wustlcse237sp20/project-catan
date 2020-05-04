@@ -10,6 +10,7 @@ import catan.PlayerType;
 public class Game {
 	GameBoard gameBoard;
 	ArrayList<Player> players;
+	ArrayList<Player> snakeDraft;
 	Scanner inputScanner;
 	Player currentlyPlaying;
 
@@ -21,10 +22,11 @@ public class Game {
 		gameBoard = new GameBoard(centerX, centerY, hexagonRadius);
 		gameBoard.genBoard();
 		players = new ArrayList<Player>();
+		snakeDraft = new ArrayList<Player>();
 		inputScanner = new Scanner(System.in);
 		this.addPlayers();
-		currentlyPlaying = players.remove(0);
-		currentlyPlaying.addCardsToHand(CardType.BRICK, 4);
+		this.setupDraft();
+		currentlyPlaying = snakeDraft.remove(0);
 	}
 	private void addPlayers() {
 		for(int i = 0; i < 4; i++) {
@@ -33,18 +35,37 @@ public class Game {
 			players.add(newPlayer);
 		}
 	}
+	private void setupDraft() {
+		for(int i = 0; i < players.size(); i++) {
+			// adds each player to start and end of snake draft
+			Player player = players.get(i);
+			snakeDraft.add(player);
+			snakeDraft.add(0, player);
+		}
+	}
 	private void run() {
+		// Run snake draft setup
+		while(snakeDraft.size() > 0) {
+			this.setupTurn();
+		}
+		gameBoard.endSetupPhase();
+		
+		// Run normal turns until someone wins
 		Player winner = null;
+		currentlyPlaying = players.remove(0);
 		while(winner == null) {
 			this.turn();
-			winner = gameBoard.getWinner();
 		}
-		System.out.println(winner.getName() + " Wins!");
 	}
 	private void turn() {
 		this.rollStep();
 		this.purchaseStep();
 		this.endStep();
+	}
+	private void setupTurn() {
+		this.setupGiftStep();
+		this.purchaseStep();
+		this.setupEndStep();
 	}
 	private void rollStep() {
 		String playerName = currentlyPlaying.getName();
@@ -70,6 +91,19 @@ public class Game {
 	private void endStep() {
 		players.add(currentlyPlaying);
 		currentlyPlaying = players.remove(0);
+	}
+	
+	private void setupGiftStep() {
+		String playerName = currentlyPlaying.getName();
+		System.out.println("It is " + playerName + "'s turn to place.");
+		
+		currentlyPlaying.addCardsToHand(CardType.BRICK, 2);
+		currentlyPlaying.addCardsToHand(CardType.LUMBER, 2);
+		currentlyPlaying.addCardsToHand(CardType.SHEEP, 1);
+		currentlyPlaying.addCardsToHand(CardType.WHEAT, 1);
+	}
+	private void setupEndStep() {
+		currentlyPlaying = snakeDraft.remove(0);
 	}
 	
 	private int dieRoll() {
