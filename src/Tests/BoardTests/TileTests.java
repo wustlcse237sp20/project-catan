@@ -7,10 +7,10 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import catan.Board.StdDraw;
-import catan.Board.Tile;
-import catan.Player.Player;
-import catan.Player.PlayerType;
+import catan.Player;
+import catan.PlayerType;
+import catan.StdDraw;
+import catan.Tile;
 
 import org.junit.jupiter.api.Test;
 
