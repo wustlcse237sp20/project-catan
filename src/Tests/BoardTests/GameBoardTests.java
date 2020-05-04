@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import catan.Board.StdDraw;
-import catan.Board.Tile;
-import catan.Board.GameBoard;
-
+import catan.Gameboard;
+import catan.StdDraw;
+import catan.Tile;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,12 +18,12 @@ class GameBoardTests {
 	
 	@BeforeEach
 	void setupTestingObject() {
-		testTiles = GameBoard.getTiles();
+		testTiles = Gameboard.getTiles();
 	}
 	
 	@Test
 	void testDrawBackground() {
-		GameBoard.drawBackground();
+		Gameboard.drawBackground();
 		assertTrue(true);
 	}
 	
@@ -39,8 +38,7 @@ class GameBoardTests {
 		double x = 2;
 		double y = 2;
 		double hexagonRadius = 4;
-		GameBoard gameBoard = new GameBoard();
-		gameBoard.genBoard(x,y,hexagonRadius);
+		Gameboard.genBoard(x,y,hexagonRadius);
 		assertTrue(true);
 	}
 	

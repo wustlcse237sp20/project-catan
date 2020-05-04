@@ -8,7 +8,10 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import catan.Cards.*;
+import catan.ResourceCard;
+import catan.Card;
+import catan.DevelopmentCard;
+import catan.CardType;
 
 import org.junit.jupiter.api.Test;
 
